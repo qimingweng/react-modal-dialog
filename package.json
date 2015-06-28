@@ -10,11 +10,14 @@
   "author": "Qiming Weng",
   "license": "MIT",
   "dependencies": {
+    "active-event-stack": "^1.0.0",
     "classnames": "^2.1.2",
     "dynamics.js": "0.0.7",
     "immutable": "^3.7.4",
+    "keycode": "^2.1.0",
     "lodash": "^3.9.3",
-    "react": "^0.13.3"
+    "react": "^0.13.3",
+    "react-center-component": "^1.0.0"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",

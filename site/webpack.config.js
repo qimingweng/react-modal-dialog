@@ -23,8 +23,7 @@ module.exports = {
 		loaders: [
 			{
 				test: /\.js$/, 
-				exclude: /(node_modules|react-modal-dialog\/lib)/, 
-				// include: /react\-spin/,
+				exclude: /(node_modules|react-modal-dialog\/lib)/,
 				loader: 'babel?stage=0'
 			},
 			{test: /\.(png|jpg)$/, loader: 'url?limit=8096'},

@@ -51,3 +51,13 @@
 		padding: 50px 0;
 	}
 }
+
+.example-dialog {
+	h1, p {
+		margin-bottom: 10px;
+
+		&:last-child {
+			margin-bottom: 0px;
+		}
+	}
+}

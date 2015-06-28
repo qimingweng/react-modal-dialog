@@ -1,7 +1,7 @@
 // HomePageExampleModalButton
 import React, {PropTypes} from 'react';
 import {ModalContainer, ModalDialog} from 'react-modal-dialog';
-import ReactSpinner from '../components/ReactSpinner.react';
+import ReactSpinner from 'react-spinner';
 require('react-modal-dialog/css/ReactModalDialog.scss');
 
 export default class HomePageExampleModalButton extends React.Component {
@@ -53,16 +53,16 @@ class FirstModal extends React.Component {
 				{this.state.isLoading ?
 					<ReactSpinner color="white"/>
 					:
-					<ModalDialog onClose={this.props.onClose}>
+					<ModalDialog onClose={this.props.onClose} className="example-dialog">
+						{this.state.showSecondModal ?
+							<SecondModal onClose={this.closeModal}/>
+						: null}
+
 						<h1>This is a Modal Dialog</h1>
 						<p>You can hit esc to close it, or click outside the boundaries</p>
 						<p>You can also click the close button</p>
 						<p>You can open up a <a onClick={this.openModal}>second modal</a> within this!</p>
 						<p>You can make this modal <a onClick={this.load}>load</a></p>
-
-						{this.state.showSecondModal ?
-							<SecondModal onClose={this.closeModal}/>
-						: null}
 					</ModalDialog>
 				}
 			</ModalContainer>
@@ -77,8 +77,8 @@ class SecondModal extends React.Component {
 	render() {
 		return (
 			<ModalContainer onClose={this.props.onClose}>
-				<ModalDialog onClose={this.props.onClose}>
-					<h1>This is a Second Modal Dialog</h1>
+				<ModalDialog onClose={this.props.onClose} width={350} className="example-dialog">
+					<h1>Second Dialog</h1>
 					<p>When you hit esc, only this one will close</p>
 				</ModalDialog>
 			</ModalContainer>

@@ -20,7 +20,10 @@
 			margin-bottom: $std-margin;
 		}
 
-		.open-modal {
+		.header-link {
+			color: white;
+			text-decoration: none;
+			margin-right: 10px;
 			display: inline-block;
 			box-sizing: border-box;
 			padding: 0px 20px;
@@ -28,6 +31,10 @@
 			line-height: 40px;
 			border-radius: 5px;
 			border: 1px solid white;
+
+			&:last-child {
+				margin-right: 0px;
+			}
 
 			&:hover {
 				background: rgba(255, 255, 255, 0.2);

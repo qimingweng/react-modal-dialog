@@ -1,5 +1,11 @@
 @import "reset";
 
+$blue: #0096d6;
+
 body {
 	font-family: "proxima-nova"
+}
+
+a {
+	color: $blue;
 }

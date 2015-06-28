@@ -21,7 +21,12 @@ module.exports = {
 	},
 	module: {
 		loaders: [
-			{test: /\.js$/, exclude: /(node_modules|react-modal-dialog\/lib)/, loader: 'babel?stage=0'},
+			{
+				test: /\.js$/, 
+				exclude: /(node_modules|react-modal-dialog\/lib)/, 
+				// include: /react\-spin/,
+				loader: 'babel?stage=0'
+			},
 			{test: /\.(png|jpg)$/, loader: 'url?limit=8096'},
 			{test: /\.scss$/, loader: ExtractTextPlugin.extract('css?sourceMap!postcss?sourceMap!sass?sourceMap')}
 		]
@@ -29,6 +34,11 @@ module.exports = {
 	devServer: {
 	  historyApiFallback: true,
 	  port: 9000
+	},
+	resolve: {
+		alias: {
+			react: __dirname + '/node_modules/react'
+		}
 	},
 	devtool: IS_DEV ? 'cheap-module-source-map' : undefined,
 	postcss: function() {

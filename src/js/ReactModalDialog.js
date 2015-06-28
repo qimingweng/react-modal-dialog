@@ -10,7 +10,7 @@ import ActiveEventController from './ActiveEventController';
 
 const animationConstant = 300;
 
-export class ModalController extends React.Component {
+export class ModalPortal extends React.Component {
 	_target = null // HTMLElement, a div that is appended to the body
 	_component = null // ReactComponent, which is mounted on the target
 	static propTypes = {
@@ -62,7 +62,7 @@ export class ModalController extends React.Component {
 	render = () => null // This doesn't actually return anything to render
 }
 
-class ModalBackground extends React.Component {
+export class ModalBackground extends React.Component {
 	static propTypes = {
 		onClose: PropTypes.func
 	}
@@ -142,21 +142,24 @@ class ModalBackground extends React.Component {
 	}
 }
 
+/**
+ * This class is a shorthand that combines the portal and background
+ */
 export class ModalContainer extends React.Component {
 	render = () => {
 		const {onClose, children} = this.props;
 
 		return (
-			<ModalController onClose={onClose}>
+			<ModalPortal onClose={onClose}>
 				<ModalBackground onClose={onClose}>
 					{children}
 				</ModalBackground>
-			</ModalController>
+			</ModalPortal>
 		)
 	}
 }
 
-// This decorator centres the dialog
+// This decorator centers the dialog
 @centerComponent
 export class ModalDialog extends React.Component {
   static propTypes = {
@@ -231,44 +234,3 @@ export class ModalDialog extends React.Component {
     )
   }
 }
-
-// /**
-//  * This class builds on top of the DialogCentered class
-//  */
-// export class ConfirmModalDialog extends React.Component {
-// 	static propTypes = {
-// 		title: PropTypes.string,
-// 		message: PropTypes.string,
-// 		onCancel: PropTypes.func,
-// 		onClose: PropTypes.func,
-// 		onConfirm: PropTypes.func
-// 	}
-// 	static defaultProps = {
-// 		title: 'Confirm'
-// 	}
-// 	render = () => {
-// 		const {message, title, onCancel, onConfirm, onClose} = this.props;
-// 		const width = 390;
-// 		const middleMargin = 20;
-// 		const buttonWidth = (390 - (20 * 2) - middleMargin)/2;
-
-// 		return (
-// 			<ModalDialog width={390} onClose={onClose}>
-// 				<h1>{title}</h1>
-// 				<p>{message}</p>
-
-// 				<Button color="gray" style={{
-// 					display: 'inline-block',
-// 					verticalAlign: 'top',
-// 					marginRight: middleMargin,
-// 					width: buttonWidth
-// 				}} title="Cancel" onClick={onCancel}/>
-// 				<Button style={{
-// 					display: 'inline-block',
-// 					verticalAlign: 'top',
-// 					width: buttonWidth
-// 				}} title="OK"  onClick={onConfirm}/>
-// 			</ModalDialog>
-// 		)
-// 	}
-// }

@@ -17,3 +17,7 @@ For now, I recommend you check out the source code of this project, as it is qui
 The hardest part about dialogs is their architecture, not the UI or specific implementation. Feel free to swap out your own ModalDialog class into my existing ModalContainer, or disassemble ModalContainer into your own portal and background class.
 
 To get the esc key to only close the top dialog when there are two modal dialogs, I employed the use of an event controller. However, you may find this to be peculiar or you may want to attach your dialogs to your own event controller. If that's true, you may want to branch this project to edit the code in `componentDidMount` and `componentWillUnmount` of `ModalPortal`.
+
+## Building
+
+To build the website, navigate to `/site` and run `npm start`

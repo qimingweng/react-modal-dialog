@@ -1,7 +1,7 @@
 {
   "name": "react-modal-dialog",
   "version": "0.0.1",
-  "description": "A declarative way to create modal dialogs with React",
+  "description": "A simple, idiomatic, and declarative way to launch modal dialogs in ReactJS",
   "main": "lib/index.js",
   "scripts": {
     "start": "babel src --out-dir lib",

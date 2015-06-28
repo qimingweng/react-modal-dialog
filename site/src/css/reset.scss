@@ -1,0 +1,26 @@
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, a, blockquote, pre, fieldset, table, th, td, textarea, input, img {
+	margin: 0;
+	padding: 0;
+}
+a img {
+	border: none;
+}
+.clear {
+	clear: both;
+}
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+:focus {
+	outline: none; // Takes out the fuzzy line around links
+}
+input {
+	border: none;
+}
+
+a:hover {
+	cursor: pointer;
+}

@@ -1,0 +1,46 @@
+#home-page {
+	$std-margin: 20px;
+
+	header {
+		background: linear-gradient(to bottom, #4B78CD 0%, #65C2E7 100%);
+		padding: 100px 0px;
+		text-align: center;
+		color: white;
+
+		h1 {
+			font-size: 30px;
+			font-weight: 400;
+			margin-bottom: $std-margin;
+		}
+
+		h2 {
+			font-size: 18px;
+			font-weight: 400;
+			opacity: 0.7;
+			margin-bottom: $std-margin;
+		}
+
+		.open-modal {
+			display: inline-block;
+			box-sizing: border-box;
+			padding: 0px 20px;
+			height: 40px;
+			line-height: 40px;
+			border-radius: 5px;
+			border: 1px solid white;
+
+			&:hover {
+				background: rgba(255, 255, 255, 0.2);
+			}
+		}
+	}
+
+	pre {
+		padding: 20px;
+		border-radius: 5px;
+	}
+
+	section {
+		padding: 50px 0;
+	}
+}

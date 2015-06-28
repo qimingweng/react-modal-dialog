@@ -1,0 +1,274 @@
+// This paradigm uses layering
+import React, {PropTypes} from 'react';
+import classNames from 'classnames';
+import dynamics from 'dynamics.js';
+
+// Custom dependencies
+import Keyboard from './Keyboard';
+import {centerComponent} from './ComponentUtils';
+import ActiveEventController from './ActiveEventController';
+
+const animationConstant = 300;
+
+export class ModalController extends React.Component {
+	_target = null // HTMLElement, a div that is appended to the body
+	_component = null // ReactComponent, which is mounted on the target
+	static propTypes = {
+		onClose: PropTypes.func // This is called when the dialog should close
+	}
+	componentDidMount = () => {
+		// Create a div and append it to the body
+		this._target = document.body.appendChild(document.createElement('div'));
+
+		// Mount a component on that div
+		this._component = React.render(this.props.children, this._target);
+
+		this.eventToken = ActiveEventController.addListenable([
+			['click', this.clickHandler],
+			['keydown', this.keydownHandler]
+		]);
+	}
+	componentDidUpdate = () => {
+		// When the child component updates, we have to make sure the content rendered to the DOM is updated to
+		this._component = React.render(this.props.children, this._target);
+	}
+	componentWillUnmount = () => {
+		ActiveEventController.removeListenable(this.eventToken);
+		
+		if (this._component.asyncDismiss) {
+			this._component.asyncDismiss(() => {
+				React.unmountComponentAtNode(this._target);
+				document.body.removeChild(this._target);
+			});
+		} else {
+			React.unmountComponentAtNode(this._target);
+			document.body.removeChild(this._target);
+		}
+	}
+	clickHandler = (event) => {
+		if (typeof this._component.shouldClickDismiss == 'function') {
+			if (this._component.shouldClickDismiss(event.target)) {
+				if (typeof this.props.onClose == 'function') 
+					this.props.onClose();
+			}
+		}
+	}
+	keydownHandler = (event) => {
+		if (event.keyCode == Keyboard.Esc) {
+			if (typeof this.props.onClose == 'function')
+				this.props.onClose();
+		}
+	}
+	render = () => null // This doesn't actually return anything to render
+}
+
+class ModalBackground extends React.Component {
+	static propTypes = {
+		onClose: PropTypes.func
+	}
+	state = {
+		transparent: true
+	}
+	asyncDismiss = (callback) => {
+		this.setState({transparent: true});
+
+		setTimeout(() => {
+			callback();
+		}, animationConstant);
+	}
+	shouldClickDismiss = (target) => {
+		const dialogNode = React.findDOMNode(this.refs.childRef);
+		if (target == dialogNode || dialogNode.contains(target)) return false;
+		return true;
+	}
+	componentDidMount = () => {
+		// Create a delay so CSS will animate
+		requestAnimationFrame(() => {
+			this.setState({
+				transparent: false
+			});
+		});
+	}
+	getChild = () => {
+		const child = React.Children.only(this.props.children);
+		return React.cloneElement(child, {
+			onClose: this.props.onClose,
+			transparent: this.state.transparent,
+			ref: 'childRef'
+		});
+	}
+	render = () => {
+		const {transparent} = this.state;
+
+		const overlayStyle = {
+		  opacity: transparent ? 0 : 0.85,
+		  position: 'absolute',
+		  backgroundColor: '#182738',
+		  top: 0,
+		  left: 0,
+		  height: '100%',
+		  width: '100%',
+		  transition: `opacity ${animationConstant/1000}s`,
+		  WebkitTransition: `opacity ${animationConstant/1000}s`
+		}
+
+		const containerStyle = {
+		  opacity: transparent ? 0 : 1,
+		  overflowY: 'auto',
+		  position: 'absolute',
+		  top: 0,
+		  left: 0,
+		  minHeight: '100%',
+		  width: '100%',
+		  transition: `opacity ${animationConstant/1000}s`,
+		  WebkitTransition: `opacity ${animationConstant/1000}s`
+		}
+
+		return (
+			<div style={{
+				position: 'fixed',
+				top: 0,
+				left: 0,
+				bottom: 0,
+				right: 0,
+				zIndex: 5
+			}}>
+				<div style={overlayStyle}/>
+				<div style={containerStyle}>
+					{this.getChild()}
+				</div>
+			</div>
+		)
+	}
+}
+
+export class ModalContainer extends React.Component {
+	render = () => {
+		const {onClose, children} = this.props;
+
+		return (
+			<ModalController onClose={onClose}>
+				<ModalBackground onClose={onClose}>
+					{children}
+				</ModalBackground>
+			</ModalController>
+		)
+	}
+}
+
+// This decorator centres the dialog
+@centerComponent
+export class ModalDialog extends React.Component {
+  static propTypes = {
+  	onClose: PropTypes.func, // required for the close button
+  	id: PropTypes.string,
+  	className: PropTypes.string,
+    width: PropTypes.number,
+    topOffset: PropTypes.number,
+    leftOffset: PropTypes.number,
+    transparent: PropTypes.bool // render as if the dialog is starting off transparent
+  }
+  static defaultProps = {
+  	width: 500
+  }
+  getCenteredElement = () => {
+  	return React.findDOMNode(this.refs.center);
+  }
+  componentWillReceiveProps = (nextProps) => {
+  	if (!this.props.transparent && nextProps.transparent) {
+  		// Will fade out
+  		const node = React.findDOMNode(this);
+  		dynamics.animate(node, {
+  			scale: 1.2,
+  			opacity: 0
+  		}, {
+  			duration: 300,
+  			type: dynamics.easeIn,
+  		});
+  	}
+  }
+  componentDidMount = () => {
+		const node = React.findDOMNode(this);
+		
+		if (document.body.style.transform == undefined) {
+			node.style.WebkitTransform = 'scale(0.5)';
+		} else {
+			node.style.transform = 'scale(0.5)';
+		}
+
+		dynamics.animate(node, {
+			scale: 1
+		}, {
+			type: dynamics.spring,
+			duration: 500,
+			friction: 400
+		});
+  }
+  render = () => {
+  	const {id, className, children, transparent, onClose} = this.props;
+  	const MARGIN = 20;
+
+  	const dialogStyle = {
+  		position: 'absolute',
+  		marginBottom: MARGIN,
+  		width: this.props.width,
+  		top: Math.max(this.props.topOffset, MARGIN),
+  		left: this.props.leftOffset
+  	}
+
+  	const divClassName = classNames(
+  		'ReactModalDialog',
+  		className
+  	);
+
+    return (
+      <div id={id}
+      	className={divClassName} 
+      	style={dialogStyle}>
+        {onClose ? <a className="close-btn" onClick={onClose}/> : null}
+        {this.props.children}
+      </div>
+    )
+  }
+}
+
+// /**
+//  * This class builds on top of the DialogCentered class
+//  */
+// export class ConfirmModalDialog extends React.Component {
+// 	static propTypes = {
+// 		title: PropTypes.string,
+// 		message: PropTypes.string,
+// 		onCancel: PropTypes.func,
+// 		onClose: PropTypes.func,
+// 		onConfirm: PropTypes.func
+// 	}
+// 	static defaultProps = {
+// 		title: 'Confirm'
+// 	}
+// 	render = () => {
+// 		const {message, title, onCancel, onConfirm, onClose} = this.props;
+// 		const width = 390;
+// 		const middleMargin = 20;
+// 		const buttonWidth = (390 - (20 * 2) - middleMargin)/2;
+
+// 		return (
+// 			<ModalDialog width={390} onClose={onClose}>
+// 				<h1>{title}</h1>
+// 				<p>{message}</p>
+
+// 				<Button color="gray" style={{
+// 					display: 'inline-block',
+// 					verticalAlign: 'top',
+// 					marginRight: middleMargin,
+// 					width: buttonWidth
+// 				}} title="Cancel" onClick={onCancel}/>
+// 				<Button style={{
+// 					display: 'inline-block',
+// 					verticalAlign: 'top',
+// 					width: buttonWidth
+// 				}} title="OK"  onClick={onConfirm}/>
+// 			</ModalDialog>
+// 		)
+// 	}
+// }

@@ -1,0 +1,27 @@
+{
+  "name": "react-modal-dialog",
+  "version": "0.0.1",
+  "description": "A declarative way to create modal dialogs with React",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "babel src --out-dir lib",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Qiming Weng",
+  "license": "MIT",
+  "dependencies": {
+    "classnames": "^2.1.2",
+    "dynamics.js": "0.0.7",
+    "immutable": "^3.7.4",
+    "lodash": "^3.9.3",
+    "react": "^0.13.3"
+  },
+  "devDependencies": {
+    "autoprefixer-core": "^5.2.1",
+    "css-loader": "^0.15.1",
+    "extract-text-webpack-plugin": "^0.8.2",
+    "node-libs-browser": "^0.5.2",
+    "postcss-loader": "^0.5.1",
+    "webpack": "^1.10.0"
+  }
+}

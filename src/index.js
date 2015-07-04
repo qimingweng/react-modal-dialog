@@ -174,9 +174,6 @@ export class ModalDialog extends React.Component {
   static defaultProps = {
   	width: 500
   }
-  getCenteredElement = () => {
-  	return React.findDOMNode(this.refs.center);
-  }
   componentWillReceiveProps = (nextProps) => {
   	if (!this.props.transparent && nextProps.transparent) {
   		// Will fade out

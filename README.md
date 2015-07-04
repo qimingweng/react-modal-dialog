@@ -21,3 +21,11 @@ To get the esc key to only close the top dialog when there are two modal dialogs
 ## Building
 
 To build the website, navigate to `/site` and run `npm start`
+
+## Usage
+
+...
+
+## Styles (CSS and Images)
+
+For your convenience, I have included some stylesheets in the package that you can either load in with something like webpack, or use as a reference for your own style implementation. I have also included the images necessary for the close button.

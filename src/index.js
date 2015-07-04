@@ -1,4 +1,3 @@
-// This paradigm uses layering
 import React, {PropTypes} from 'react';
 import classNames from 'classnames';
 /**
@@ -35,7 +34,7 @@ export class ModalPortal extends React.Component {
 	}
 	componentWillUnmount = () => {
 		EventStack.removeListenable(this.eventToken);
-		
+
 		if (this._component.asyncDismiss) {
 			this._component.asyncDismiss(() => {
 				React.unmountComponentAtNode(this._target);
@@ -49,7 +48,7 @@ export class ModalPortal extends React.Component {
 	clickHandler = (event) => {
 		if (typeof this._component.shouldClickDismiss == 'function') {
 			if (this._component.shouldClickDismiss(event.target)) {
-				if (typeof this.props.onClose == 'function') 
+				if (typeof this.props.onClose == 'function')
 					this.props.onClose();
 			}
 		}
@@ -165,11 +164,11 @@ export class ModalContainer extends React.Component {
 export class ModalDialog extends React.Component {
   static propTypes = {
   	onClose: PropTypes.func, // required for the close button
-  	id: PropTypes.string,
-  	className: PropTypes.string,
-    width: PropTypes.number,
-    topOffset: PropTypes.number,
-    leftOffset: PropTypes.number,
+  	id: PropTypes.string, // css id
+  	className: PropTypes.string, // css class in addition to .ReactModalDialog
+    width: PropTypes.number, // width
+    topOffset: PropTypes.number, // injected by @centerComponent
+    leftOffset: PropTypes.number, // injected by @centerComponent
     transparent: PropTypes.bool // render as if the dialog is starting off transparent
   }
   static defaultProps = {
@@ -193,7 +192,7 @@ export class ModalDialog extends React.Component {
   }
   componentDidMount = () => {
 		const node = React.findDOMNode(this);
-		
+
 		if (document.body.style.transform == undefined) {
 			node.style.WebkitTransform = 'scale(0.5)';
 		} else {
@@ -227,7 +226,7 @@ export class ModalDialog extends React.Component {
 
     return (
       <div id={id}
-      	className={divClassName} 
+      	className={divClassName}
       	style={dialogStyle}>
         {onClose ? <a className="close-btn" onClick={onClose}/> : null}
         {this.props.children}

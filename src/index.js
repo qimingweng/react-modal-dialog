@@ -8,8 +8,6 @@ import keycode from 'keycode';
 import centerComponent from 'react-center-component';
 import EventStack from 'active-event-stack';
 
-const animationConstant = 300;
-
 export class ModalPortal extends React.Component {
 	_target = null // HTMLElement, a div that is appended to the body
 	_component = null // ReactComponent, which is mounted on the target
@@ -35,14 +33,19 @@ export class ModalPortal extends React.Component {
 	componentWillUnmount = () => {
 		EventStack.removeListenable(this.eventToken);
 
-		if (this._component.asyncDismiss) {
-			this._component.asyncDismiss(() => {
-				React.unmountComponentAtNode(this._target);
-				document.body.removeChild(this._target);
-			});
-		} else {
+		const done = () => {
+			// Remove the node and clean up after the target
 			React.unmountComponentAtNode(this._target);
 			document.body.removeChild(this._target);
+		}
+
+		// A similar API to react-transition-group
+		if (typeof this._component.componentWillLeave == 'function') {
+			// Pass the callback to be called on completion
+			this._component.componentWillLeave(done);
+		} else {
+			// Call completion immediately
+			done();
 		}
 	}
 	clickHandler = (event) => {
@@ -64,17 +67,28 @@ export class ModalPortal extends React.Component {
 
 export class ModalBackground extends React.Component {
 	static propTypes = {
-		onClose: PropTypes.func
+		onClose: PropTypes.func,
+		duration: PropTypes.number.isRequired,
+		backgroundColor: PropTypes.string.isRequired
+	}
+	static defaultProps = {
+		duration: 300,
+		backgroundColor: '#182738'
 	}
 	state = {
+		// This is set to false as soon as the component has mounted
+		// This allows the component to change its css and animate in
 		transparent: true
 	}
-	asyncDismiss = (callback) => {
-		this.setState({transparent: true});
+	componentWillLeave = (callback) => {
+		this.setState({
+			transparent: true,
+			componentIsLeaving: true
+		});
 
 		setTimeout(() => {
 			callback();
-		}, animationConstant);
+		}, this.props.duration);
 	}
 	shouldClickDismiss = (target) => {
 		const dialogNode = React.findDOMNode(this.refs.childRef);
@@ -83,17 +97,13 @@ export class ModalBackground extends React.Component {
 	}
 	componentDidMount = () => {
 		// Create a delay so CSS will animate
-		requestAnimationFrame(() => {
-			this.setState({
-				transparent: false
-			});
-		});
+		requestAnimationFrame(() => this.setState({transparent: false}));
 	}
 	getChild = () => {
 		const child = React.Children.only(this.props.children);
 		return React.cloneElement(child, {
 			onClose: this.props.onClose,
-			transparent: this.state.transparent,
+			componentIsLeaving: this.state.componentIsLeaving,
 			ref: 'childRef'
 		});
 	}
@@ -103,13 +113,13 @@ export class ModalBackground extends React.Component {
 		const overlayStyle = {
 		  opacity: transparent ? 0 : 0.85,
 		  position: 'absolute',
-		  backgroundColor: '#182738',
+		  backgroundColor: this.props.backgroundColor,
 		  top: 0,
 		  left: 0,
 		  height: '100%',
 		  width: '100%',
-		  transition: `opacity ${animationConstant/1000}s`,
-		  WebkitTransition: `opacity ${animationConstant/1000}s`
+		  transition: `opacity ${this.props.duration/1000}s`,
+		  WebkitTransition: `opacity ${this.props.duration/1000}s`
 		}
 
 		const containerStyle = {
@@ -120,23 +130,23 @@ export class ModalBackground extends React.Component {
 		  left: 0,
 		  minHeight: '100%',
 		  width: '100%',
-		  transition: `opacity ${animationConstant/1000}s`,
-		  WebkitTransition: `opacity ${animationConstant/1000}s`
+		  transition: `opacity ${this.props.duration/1000}s`,
+		  WebkitTransition: `opacity ${this.props.duration/1000}s`
+		}
+
+		const style = {
+			position: 'fixed',
+			top: 0,
+			left: 0,
+			bottom: 0,
+			right: 0,
+			zIndex: 5
 		}
 
 		return (
-			<div style={{
-				position: 'fixed',
-				top: 0,
-				left: 0,
-				bottom: 0,
-				right: 0,
-				zIndex: 5
-			}}>
+			<div style={style}>
 				<div style={overlayStyle}/>
-				<div style={containerStyle}>
-					{this.getChild()}
-				</div>
+				<div style={containerStyle}>{this.getChild()}</div>
 			</div>
 		)
 	}
@@ -146,12 +156,17 @@ export class ModalBackground extends React.Component {
  * This class is a shorthand that combines the portal and background
  */
 export class ModalContainer extends React.Component {
+	static propTypes = {
+		onClose: PropTypes.func,
+		duration: PropTypes.number,
+		backgroundColor: PropTypes.string
+	}
 	render = () => {
-		const {onClose, children} = this.props;
+		const {children, ...props} = this.props;
 
 		return (
-			<ModalPortal onClose={onClose}>
-				<ModalBackground onClose={onClose}>
+			<ModalPortal {...props}>
+				<ModalBackground {...props}>
 					{children}
 				</ModalBackground>
 			</ModalPortal>
@@ -169,25 +184,26 @@ export class ModalDialog extends React.Component {
     width: PropTypes.number, // width
     topOffset: PropTypes.number, // injected by @centerComponent
     leftOffset: PropTypes.number, // injected by @centerComponent
-    transparent: PropTypes.bool // render as if the dialog is starting off transparent
+		margin: PropTypes.number.isRequired // the margin around the dialog
   }
   static defaultProps = {
-  	width: 500
+  	width: 500,
+		margin: 20
   }
   componentWillReceiveProps = (nextProps) => {
-  	if (!this.props.transparent && nextProps.transparent) {
-  		// Will fade out
-  		const node = React.findDOMNode(this);
-  		dynamics.animate(node, {
-  			scale: 1.2,
-  			opacity: 0
-  		}, {
-  			duration: 300,
-  			type: dynamics.easeIn,
-  		});
-  	}
+		if (nextProps.componentIsLeaving && !this.props.componentIsLeaving) {
+			const node = React.findDOMNode(this);
+			dynamics.animate(node, {
+				scale: 1.2,
+				opacity: 0
+			}, {
+				duration: 300,
+				type: dynamics.easeIn,
+			});
+		}
   }
   componentDidMount = () => {
+		// Animate this node once it is mounted
 		const node = React.findDOMNode(this);
 
 		if (document.body.style.transform == undefined) {
@@ -205,28 +221,22 @@ export class ModalDialog extends React.Component {
 		});
   }
   render = () => {
-  	const {id, className, children, transparent, onClose} = this.props;
-  	const MARGIN = 20;
+  	const {id, topOffset, leftOffset, width, className, children, transparent, onClose, margin} = this.props;
 
   	const dialogStyle = {
   		position: 'absolute',
-  		marginBottom: MARGIN,
-  		width: this.props.width,
-  		top: Math.max(this.props.topOffset, MARGIN),
-  		left: this.props.leftOffset
+  		marginBottom: margin,
+  		width: width,
+  		top: Math.max(topOffset, margin),
+  		left: leftOffset
   	}
 
-  	const divClassName = classNames(
-  		'ReactModalDialog',
-  		className
-  	);
+  	const divClassName = classNames('ReactModalDialog', className);
 
     return (
-      <div id={id}
-      	className={divClassName}
-      	style={dialogStyle}>
+      <div id={id} className={divClassName} style={dialogStyle}>
         {onClose ? <a className="close-btn" onClick={onClose}/> : null}
-        {this.props.children}
+        {children}
       </div>
     )
   }

@@ -42,13 +42,17 @@
 		}
 	}
 
-	pre {
-		padding: 20px;
-		border-radius: 5px;
-	}
-
-	section {
+	.body-section {
 		padding: 50px 0;
+
+		h1, h2, h3, pre, p, ul, ol {
+			margin-bottom: 10px;
+		}
+
+		pre {
+			padding: 20px;
+			border-radius: 5px;
+		}
 	}
 }
 

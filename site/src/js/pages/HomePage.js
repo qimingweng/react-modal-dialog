@@ -23,7 +23,7 @@ export default class HomePage extends React.Component {
 
         <section className="body-section">
           <Container>
-            <ExampleCode/>
+            <HomeContent/>
           </Container>
         </section>
       </div>
@@ -31,34 +31,13 @@ export default class HomePage extends React.Component {
   }
 }
 
-const code = `
-\`\`\`javascript
-class Button extends React.Component {
-  state = {
-    isShowingModal: false
-  }
-  openModal = () => {
-    this.setState({isShowingModal: true});
-  }
-  render() {
-    return (
-      <a onClick={this.openModal}>
-        Button Text
-        {this.state.isShowingModal ? 
-          <Modal/>
-        : null}
-      </a>
-    )
-  }
-}
-\`\`\`
-`;
+const markdown = require('raw!../markdown/HomePage.md');
 
-class ExampleCode extends React.Component {
+class HomeContent extends React.Component {
   render() {
     return (
       <div dangerouslySetInnerHTML={{
-        __html: marked.parse(code, {renderer: customMarkedRenderer})
+        __html: marked.parse(markdown, {renderer: customMarkedRenderer})
       }}/>
     )
   }

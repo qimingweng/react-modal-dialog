@@ -101,11 +101,15 @@ export class ModalBackground extends React.Component {
 	}
 	getChild = () => {
 		const child = React.Children.only(this.props.children);
-		return React.cloneElement(child, {
+		const cloneProps = {
 			onClose: this.props.onClose,
 			componentIsLeaving: this.state.componentIsLeaving,
 			ref: 'childRef'
-		});
+		};
+		if (!cloneProps.onClose) {
+			delete cloneProps.onClose;
+		}
+		return React.cloneElement(child, cloneProps);
 	}
 	render = () => {
 		const {transparent} = this.state;

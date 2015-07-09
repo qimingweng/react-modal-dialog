@@ -1,5 +1,9 @@
 # React Modal Dialog
 
+This project is in progress. Feel free to read the code to use on your own. Documentation is coming; or if you want to contribute to the documentation, that is great as well.
+
+Most of the core code is done, but the website and documentation are still in progress. Will update to version 1.0.0 once this API is stable.
+
 ## Design Considerations
 
 When you have two dialogs, the ESC key will only close the top level one (there is an event manager implemented like a stack)
@@ -12,7 +16,7 @@ The portal which opens the dialog, the background that the dialogs are loaded on
 
 ## For Your Own Implementation
 
-For now, I recommend you check out the source code of this project, as it is quite simple, to really get an understanding of how this dialog works. I've spent a lot of time trying many paradigms (you can read about all that [here](https://link/to/somewhere)), and I've settled on this one for good reasons.
+For now, I recommend you check out the source code of this project, as it is quite simple, to really get an understanding of how this dialog works. I've spent a lot of time trying many paradigms (you can read about all that [here](#todo)), and I've settled on this one for good reasons.
 
 The hardest part about dialogs is their architecture, not the UI or specific implementation. Feel free to swap out your own ModalDialog class into my existing ModalContainer, or disassemble ModalContainer into your own portal and background class.
 

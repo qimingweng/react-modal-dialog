@@ -226,7 +226,7 @@ export class ModalDialog extends React.Component {
   }
   render = () => {
   	const {id, topOffset, leftOffset, width, className, children, transparent, onClose, margin} = this.props;
-		
+
   	const dialogStyle = {
   		position: 'absolute',
   		marginBottom: margin,

@@ -14,17 +14,23 @@ export class ModalPortal extends React.Component {
 	static propTypes = {
 		onClose: PropTypes.func // This is called when the dialog should close
 	}
+	componentWillMount = () => {
+		/**
+		 * This is done in the componentWillMount instead of the componentDidMount
+		 * because this way, a modal that is a child of another will have register
+		 * for events after its parent
+		 */
+		this.eventToken = EventStack.addListenable([
+			['click', this.clickHandler],
+			['keydown', this.keydownHandler]
+		]);
+	}
 	componentDidMount = () => {
 		// Create a div and append it to the body
 		this._target = document.body.appendChild(document.createElement('div'));
 
 		// Mount a component on that div
 		this._component = React.render(this.props.children, this._target);
-
-		this.eventToken = EventStack.addListenable([
-			['click', this.clickHandler],
-			['keydown', this.keydownHandler]
-		]);
 	}
 	componentDidUpdate = () => {
 		// When the child component updates, we have to make sure the content rendered to the DOM is updated to

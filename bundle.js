@@ -23529,7 +23529,7 @@ return /******/ (function(modules) { // webpackBootstrap
 						_react2['default'].createElement('script', { id: 'initial-props',
 							type: 'application/json',
 							dangerouslySetInnerHTML: initialProps }),
-						_react2['default'].createElement('script', { src: '/bundle.js' })
+						_react2['default'].createElement('script', { src: 'bundle.js' })
 					)
 				);
 			}

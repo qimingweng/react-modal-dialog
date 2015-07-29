@@ -10,6 +10,7 @@
   "scripts": {
     "prepublish": "npm start",
     "start": "npm run build",
+    "github": "./scripts/publishStaticSite.sh",
     "build": "babel src --out-dir lib",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

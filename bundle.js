@@ -23510,7 +23510,7 @@ return /******/ (function(modules) { // webpackBootstrap
 							null,
 							'React Modal Dialog'
 						),
-						_react2['default'].createElement('link', { href: '/style.css', rel: 'stylesheet' }),
+						_react2['default'].createElement('link', { href: 'style.css', rel: 'stylesheet' }),
 						_react2['default'].createElement('link', { href: '//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css', rel: 'stylesheet' }),
 						_react2['default'].createElement('link', { href: '//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/monokai_sublime.min.css', rel: 'stylesheet' }),
 						_react2['default'].createElement('script', { src: '//use.typekit.net/mak3sgg.js' }),

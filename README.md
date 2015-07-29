@@ -1,5 +1,7 @@
 # React Modal Dialog
 
+[Check out the demo!](http://www.qimingweng.com/react-modal-dialog/)
+
 This project is in progress. Feel free to read the code to use on your own. Documentation is coming; or if you want to contribute to the documentation, that is great as well.
 
 Most of the core code is done, but the website and documentation are still in progress. Will update to version 1.0.0 once this API is stable.

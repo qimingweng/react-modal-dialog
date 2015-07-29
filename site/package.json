@@ -1,7 +1,8 @@
 {
   "description": "The website for react-modal-dialog",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --progress --no-info"
+    "start": "NODE_ENV=development webpack-dev-server --progress --no-info",
+    "build-prod": "NODE_ENV=development webpack"
   },
   "repository": {
     "type": "git",

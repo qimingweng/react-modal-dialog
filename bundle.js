@@ -23627,7 +23627,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            _react2['default'].createElement(_componentsHomePageExampleModalButtonReact2['default'], { className: 'header-link' }),
 	            _react2['default'].createElement(
 	              'a',
-	              { className: 'header-link', href: '' },
+	              { className: 'header-link', href: 'https://github.com/qimingweng/react-modal-dialog' },
 	              'Github'
 	            )
 	          )

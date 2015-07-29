@@ -17,7 +17,7 @@ export default class HomePage extends React.Component {
             <h2>A simple, idiomatic, and declarative way to launch modal dialogs in ReactJS</h2>
 
             <HomePageExampleModalButton className="header-link"/>
-            <a className="header-link" href="">Github</a>
+            <a className="header-link" href="https://github.com/qimingweng/react-modal-dialog">Github</a>
           </Container>
         </header>
 

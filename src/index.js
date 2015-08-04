@@ -97,6 +97,12 @@ export class ModalBackground extends React.Component {
 		}, this.props.duration);
 	}
 	shouldClickDismiss = (target) => {
+		// This piece of code isolates targets which are fake clicked by things
+		// like file-drop handlers
+		if (target.tagName === 'INPUT' && target.type === 'file') {
+			return false;
+		}
+
 		const dialogNode = React.findDOMNode(this.refs.childRef);
 		if (target == dialogNode || dialogNode.contains(target)) return false;
 		return true;

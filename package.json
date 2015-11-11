@@ -23,7 +23,8 @@
     "immutable": "^3.7.4",
     "keycode": "^2.1.0",
     "lodash": "^3.9.3",
-    "react": "^0.13.3",
+    "react": "^0.14.2",
+    "react-dom": "^0.14.2",
     "react-center-component": "^1.0.0"
   },
   "devDependencies": {

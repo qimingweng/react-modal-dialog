@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react';
+import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 /**
  * dynamics.js is an animation library
@@ -7,6 +8,8 @@ import dynamics from 'dynamics.js';
 import keycode from 'keycode';
 import centerComponent from 'react-center-component';
 import EventStack from 'active-event-stack';
+
+var renderSubtreeIntoContainer = require("react-dom").unstable_renderSubtreeIntoContainer;
 
 export class ModalPortal extends React.Component {
 	_target = null // HTMLElement, a div that is appended to the body
@@ -30,18 +33,18 @@ export class ModalPortal extends React.Component {
 		this._target = document.body.appendChild(document.createElement('div'));
 
 		// Mount a component on that div
-		this._component = React.render(this.props.children, this._target);
+		this._component = renderSubtreeIntoContainer(this, this.props.children, this._target);
 	}
 	componentDidUpdate = () => {
 		// When the child component updates, we have to make sure the content rendered to the DOM is updated to
-		this._component = React.render(this.props.children, this._target);
+		this._component = renderSubtreeIntoContainer(this, this.props.children, this._target);
 	}
 	componentWillUnmount = () => {
 		EventStack.removeListenable(this.eventToken);
 
 		const done = () => {
 			// Remove the node and clean up after the target
-			React.unmountComponentAtNode(this._target);
+			ReactDOM.unmountComponentAtNode(this._target);
 			document.body.removeChild(this._target);
 		}
 

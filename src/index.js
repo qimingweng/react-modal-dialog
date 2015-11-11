@@ -9,7 +9,7 @@ import keycode from 'keycode';
 import centerComponent from 'react-center-component';
 import EventStack from 'active-event-stack';
 
-var renderSubtreeIntoContainer = require("react-dom").unstable_renderSubtreeIntoContainer;
+const renderSubtreeIntoContainer = require("react-dom").unstable_renderSubtreeIntoContainer;
 
 export class ModalPortal extends React.Component {
 	_target = null // HTMLElement, a div that is appended to the body

@@ -82,7 +82,8 @@ export class ModalBackground extends React.Component {
 	}
 	static defaultProps = {
 		duration: 300,
-		backgroundColor: '#182738'
+		backgroundColor: '#182738',
+		zIndex: 5
 	}
 	state = {
 		// This is set to false as soon as the component has mounted
@@ -159,7 +160,7 @@ export class ModalBackground extends React.Component {
 			left: 0,
 			bottom: 0,
 			right: 0,
-			zIndex: 5
+			zIndex: this.props.zIndex
 		}
 
 		return (

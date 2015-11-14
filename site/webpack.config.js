@@ -34,7 +34,6 @@ module.exports = {
   resolve: {
     alias: {
       'react-modal-dialog$': path.join(__dirname, '../src/index.js'),
-      'react-modal-dialog/css/ReactModalDialog.scss$': path.join(__dirname, '../css/ReactModalDialog.scss'),
       react: path.join(__dirname, '/node_modules/react'),
       'react-dom': path.join(__dirname, '/node_modules/react-dom'),
     },

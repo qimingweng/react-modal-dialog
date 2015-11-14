@@ -74,9 +74,7 @@ import ReactSpinner from 'react-spinjs';
 
 # Styles (CSS and Images)
 
-For your convenience, I have included some stylesheets in the package that you can either load in with something like webpack, or use as a reference for your own style implementation. I have also included the images necessary for the close button.
-
-They are located at `require('react-modal-dialog/css/ReactModalDialog.scss')`
+In version 1.0+, `react-modal-dialog` relies on [JSS](https://github.com/jsstyles/jss) and SVG to create all the styles and images.
 
 ## For Your Own Implementation
 

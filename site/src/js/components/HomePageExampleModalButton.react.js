@@ -2,7 +2,6 @@
 import React, {PropTypes} from 'react';
 import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 import ReactSpinner from 'react-spinjs';
-require('react-modal-dialog/css/ReactModalDialog.scss');
 
 export default class HomePageExampleModalButton extends React.Component {
   state = {

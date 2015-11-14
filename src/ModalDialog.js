@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import dynamics from 'dynamics.js';
 import centerComponent from 'react-center-component';
-
 import useSheet from './useSheet';
+import CloseCircle from './CloseCircle';
 
 // This decorator centers the dialog
 @centerComponent
@@ -109,12 +109,13 @@ export default class ModalDialog extends React.Component {
     };
 
     const divClassName = classNames(classes.dialog, className);
-    const closeClassName = classNames(classes.closeButton, 'react-modal-dialog-close-btn');
 
     return <div {...rest} className={divClassName} style={dialogStyle}>
       {
         onClose ?
-        <a className={closeClassName} onClick={onClose}/> :
+        <a className={classes.closeButton} onClick={onClose}>
+          <CloseCircle diameter={40}/>
+        </a> :
         null
       }
       {children}

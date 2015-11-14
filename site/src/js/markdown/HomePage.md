@@ -1,6 +1,6 @@
 # Idiomatic Syntax
 
-```javascript
+```js
 class Button extends React.Component {
   state = {
     isShowingModal: false
@@ -23,8 +23,7 @@ class Button extends React.Component {
 
 # Actual Usage
 
-```javascript
-
+```js
 // Usage:
 
 import {ModalContainer, ModalDialog} from 'react-modal-dialog';
@@ -40,14 +39,14 @@ import {ModalContainer, ModalDialog} from 'react-modal-dialog';
 
 # Loading Spinners
 
-```javascript
+```js
 import ReactSpinner from 'react-spinjs';
 
 // In a render function
 <ModalContainer onClose={...}>
-  {this.state.isLoading ?
-    <ReactSpinner/>
-    :
+  {
+    isLoading ?
+    <ReactSpinner/> :
     <ModalDialog onClose={...}/>
   }
 </ModalContainer onClose={...}>

@@ -15,6 +15,7 @@
     "react": "^0.14.2",
     "react-dom": "^0.14.2",
     "react-router": "^0.13.3",
+    "react-spinjs": "^2.0.1",
     "webpack": "^1.9.11"
   },
   "devDependencies": {

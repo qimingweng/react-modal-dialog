@@ -1,4 +1,4 @@
-<!doctype html><html data-reactid=".1inlw9dw1ds" data-react-checksum="-316712926"><head data-reactid=".1inlw9dw1ds.0"><title data-reactid=".1inlw9dw1ds.0.0">React Modal Dialog</title><link href="style.css" rel="stylesheet" data-reactid=".1inlw9dw1ds.0.1"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" data-reactid=".1inlw9dw1ds.0.2"/><link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/monokai_sublime.min.css" rel="stylesheet" data-reactid=".1inlw9dw1ds.0.3"/><script src="//use.typekit.net/mak3sgg.js" data-reactid=".1inlw9dw1ds.0.4"></script><script data-reactid=".1inlw9dw1ds.0.5">try{Typekit.load();}catch(e){}</script><meta charset="utf-8" data-reactid=".1inlw9dw1ds.0.6"/><meta name="viewport" content="initial-scale=1, maximum-scale=1" data-reactid=".1inlw9dw1ds.0.7"/></head><body data-reactid=".1inlw9dw1ds.1"><div id="home-page" data-reactid=".1inlw9dw1ds.1.0"><header data-reactid=".1inlw9dw1ds.1.0.0"><div style="width:600px;margin:0 auto;" data-reactid=".1inlw9dw1ds.1.0.0.0"><h1 data-reactid=".1inlw9dw1ds.1.0.0.0.0">React Modal Dialog</h1><h2 data-reactid=".1inlw9dw1ds.1.0.0.0.1">A simple, idiomatic, and declarative way to launch modal dialogs in ReactJS</h2><a class="header-link" data-reactid=".1inlw9dw1ds.1.0.0.0.2"><span data-reactid=".1inlw9dw1ds.1.0.0.0.2.0">Open A Modal</span></a><a class="header-link" href="https://github.com/qimingweng/react-modal-dialog" data-reactid=".1inlw9dw1ds.1.0.0.0.3">Github</a></div></header><section class="body-section" data-reactid=".1inlw9dw1ds.1.0.1"><div style="width:600px;margin:0 auto;" data-reactid=".1inlw9dw1ds.1.0.1.0"><div data-reactid=".1inlw9dw1ds.1.0.1.0.0"><h1 id="idiomatic-syntax">Idiomatic Syntax</h1>
+<!doctype html><html data-reactid=".kafpkhlbsw" data-react-checksum="61885298"><head data-reactid=".kafpkhlbsw.0"><title data-reactid=".kafpkhlbsw.0.0">React Modal Dialog</title><link href="style.css" rel="stylesheet" data-reactid=".kafpkhlbsw.0.1"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" data-reactid=".kafpkhlbsw.0.2"/><link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/monokai_sublime.min.css" rel="stylesheet" data-reactid=".kafpkhlbsw.0.3"/><script src="//use.typekit.net/mak3sgg.js" data-reactid=".kafpkhlbsw.0.4"></script><script data-reactid=".kafpkhlbsw.0.5">try{Typekit.load();}catch(e){}</script><meta charset="utf-8" data-reactid=".kafpkhlbsw.0.6"/><meta name="viewport" content="initial-scale=1, maximum-scale=1" data-reactid=".kafpkhlbsw.0.7"/></head><body data-reactid=".kafpkhlbsw.1"><div id="home-page" data-reactid=".kafpkhlbsw.1.0"><header data-reactid=".kafpkhlbsw.1.0.0"><div style="width:600px;margin:0 auto;" data-reactid=".kafpkhlbsw.1.0.0.0"><h1 data-reactid=".kafpkhlbsw.1.0.0.0.0">React Modal Dialog</h1><h2 data-reactid=".kafpkhlbsw.1.0.0.0.1">A simple, idiomatic, and declarative way to launch modal dialogs in ReactJS</h2><a class="header-link" data-reactid=".kafpkhlbsw.1.0.0.0.2"><span data-reactid=".kafpkhlbsw.1.0.0.0.2.0">Open A Modal</span></a><a class="header-link" href="https://github.com/qimingweng/react-modal-dialog" data-reactid=".kafpkhlbsw.1.0.0.0.3">Github</a></div></header><section class="body-section" data-reactid=".kafpkhlbsw.1.0.1"><div style="width:600px;margin:0 auto;" data-reactid=".kafpkhlbsw.1.0.1.0"><div data-reactid=".kafpkhlbsw.1.0.1.0.0"><h1 id="idiomatic-syntax">Idiomatic Syntax</h1>
 <pre class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Button</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   state = {
     isShowingModal: <span class="hljs-literal">false</span>
@@ -17,8 +17,7 @@
     )</span>
   }
 }</pre><h1 id="actual-usage">Actual Usage</h1>
-<pre class="hljs">
-<span class="hljs-comment">// Usage:</span>
+<pre class="hljs"><span class="hljs-comment">// Usage:</span>
 
 <span class="hljs-keyword">import</span> {ModalContainer, ModalDialog} <span class="hljs-keyword">from</span> <span class="hljs-string">'react-modal-dialog'</span>;
 
@@ -33,9 +32,9 @@
 
 <span class="hljs-comment">// In a render function</span>
 &lt;ModalContainer onClose={...}&gt;
-  {<span class="hljs-keyword">this</span>.state.isLoading ?
-    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ReactSpinner</span>/&gt;</span>
-    :
+  {
+    isLoading ?
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ReactSpinner</span>/&gt;</span> :
     <span class="hljs-tag">&lt;<span class="hljs-title">ModalDialog</span> <span class="hljs-attribute">onClose</span>=<span class="hljs-value">{...}</span>/&gt;</span>
   }
-<span class="hljs-tag">&lt;/<span class="hljs-title">ModalContainer</span> <span class="hljs-attribute">onClose</span>=<span class="hljs-value">{...}</span>&gt;</span></span></pre></div></div></section></div><script id="initial-props" type="application/json" data-reactid=".1inlw9dw1ds.1.1">{}</script><script src="bundle.js" data-reactid=".1inlw9dw1ds.1.2"></script></body></html>
+<span class="hljs-tag">&lt;/<span class="hljs-title">ModalContainer</span> <span class="hljs-attribute">onClose</span>=<span class="hljs-value">{...}</span>&gt;</span></span></pre></div></div></section></div><script id="initial-props" type="application/json" data-reactid=".kafpkhlbsw.1.1">{}</script><script src="bundle.js" data-reactid=".kafpkhlbsw.1.2"></script></body></html>

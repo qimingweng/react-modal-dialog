@@ -4,8 +4,36 @@ import classNames from 'classnames';
 import dynamics from 'dynamics.js';
 import centerComponent from 'react-center-component';
 
+import useSheet from './useSheet';
+
 // This decorator centers the dialog
 @centerComponent
+@useSheet({
+  dialog: {
+    boxSizing: 'border-box',
+    position: 'relative',
+    background: 'white',
+    padding: 20,
+    color: '#333',
+    boxShadow: '0px 2px 15px rgba(0, 0, 0, 0.4)',
+    borderRadius: 10,
+  },
+  'closeButton': {
+    position: 'absolute',
+    top: 0,
+    left: -50,
+    display: 'block',
+    width: 40,
+    height: 40,
+    transition: 'transform 0.1s',
+    // backgroundImage: require('../images/modal-dialog-close.png'),
+    // backgroundRepeat: 'no-repeat',
+    // backgroundSize: '40px 40px',
+    '&:hover': {
+      transform: 'scale(1.1)',
+    },
+  },
+})
 export default class ModalDialog extends React.Component {
   static propTypes = {
     onClose: PropTypes.func, // required for the close button
@@ -17,6 +45,7 @@ export default class ModalDialog extends React.Component {
     children: PropTypes.node,
     componentIsLeaving: PropTypes.bool,
     style: PropTypes.object,
+    sheet: PropTypes.object,
   }
   static defaultProps = {
     width: 500,
@@ -63,6 +92,9 @@ export default class ModalDialog extends React.Component {
         onClose,
         margin,
         style,
+        sheet: {
+          classes,
+        },
         ...rest,
       },
     } = this;
@@ -76,12 +108,13 @@ export default class ModalDialog extends React.Component {
       left: leftOffset,
     };
 
-    const divClassName = classNames('ReactModalDialog', className);
+    const divClassName = classNames(classes.dialog, className);
+    const closeClassName = classNames(classes.closeButton, 'react-modal-dialog-close-btn');
 
     return <div {...rest} className={divClassName} style={dialogStyle}>
       {
         onClose ?
-        <a className="close-btn" onClick={onClose}/> :
+        <a className={closeClassName} onClick={onClose}/> :
         null
       }
       {children}

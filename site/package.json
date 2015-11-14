@@ -2,7 +2,7 @@
   "description": "The website for react-modal-dialog",
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --progress",
-    "build-prod": "NODE_ENV=development webpack"
+    "build-prod": "NODE_ENV=production webpack -p"
   },
   "repository": {
     "type": "git",

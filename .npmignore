@@ -3,3 +3,7 @@ node_modules
 site
 .babelrc
 .gitignore
+scripts
+CONTRIBUTING.md
+.eslintrc
+.npmignore

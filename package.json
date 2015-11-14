@@ -8,6 +8,7 @@
   },
   "main": "lib/index.js",
   "scripts": {
+    "prepublish": "npm run build",
     "start": "npm run build",
     "github": "./scripts/publishStaticSite.sh",
     "build": "babel src --out-dir lib",

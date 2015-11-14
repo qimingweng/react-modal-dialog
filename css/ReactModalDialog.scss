@@ -1,46 +1,46 @@
 @mixin retina-image($url, $width, $height, $use-width-height: true) {
-	$path: str-slice($url, 0, -5);
-	$ext: str-slice($url, -3, -1);
+  $path: str-slice($url, 0, -5);
+  $ext: str-slice($url, -3, -1);
 
-	background-image: url($path + "." + $ext);
-	background-repeat: no-repeat;
-	background-size: $width $height;
+  background-image: url($path + "." + $ext);
+  background-repeat: no-repeat;
+  background-size: $width $height;
 
-	@if $use-width-height {
-		width: $width;
-		height: $height;
-	}
+  @if $use-width-height {
+    width: $width;
+    height: $height;
+  }
 
-	@media (min--moz-device-pixel-ratio: 1.3),
-	       (-o-min-device-pixel-ratio: 2.6/2),
-	       (-webkit-min-device-pixel-ratio: 1.3),
-	       (min-device-pixel-ratio: 1.3),
-	       (min-resolution: 1.3dppx) {
-		background-image: url($path + "@2x." + $ext);
-	}
+  @media (min--moz-device-pixel-ratio: 1.3),
+         (-o-min-device-pixel-ratio: 2.6/2),
+         (-webkit-min-device-pixel-ratio: 1.3),
+         (min-device-pixel-ratio: 1.3),
+         (min-resolution: 1.3dppx) {
+    background-image: url($path + "@2x." + $ext);
+  }
 }
 
 .ReactModalDialog {
-	box-sizing: border-box;
-	position: relative;
-	background: white;
-	padding: 20px;
-	color: #333333;
-	box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.4);
-	border-radius: 10px;
+  box-sizing: border-box;
+  position: relative;
+  background: white;
+  padding: 20px;
+  color: #333333;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
 
-	.close-btn {
-		position: absolute;
-		top: 0px;
-		left: -50px;
-		display: block;
-		width: 40px;
-		height: 40px;
-		transition: transform 0.1s;
-		@include retina-image("../images/modal-dialog-close.png", 40px, 40px);
+  .close-btn {
+    position: absolute;
+    top: 0px;
+    left: -50px;
+    display: block;
+    width: 40px;
+    height: 40px;
+    transition: transform 0.1s;
+    @include retina-image("../images/modal-dialog-close.png", 40px, 40px);
 
-		&:hover {
-			transform: scale(1.1);
-		}
-	}
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }

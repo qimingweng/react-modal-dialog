@@ -1,5 +1,7 @@
 # React Modal Dialog
 
+[![npm](https://img.shields.io/npm/v/react-modal-dialog.svg?style=flat-square)](https://www.npmjs.com/package/react-modal-dialog)
+
 [Check out the demo!](http://www.qimingweng.com/react-modal-dialog/)
 
 This project is in progress. Feel free to read the code to use on your own. Documentation is coming; or if you want to contribute to the documentation, that is great as well.

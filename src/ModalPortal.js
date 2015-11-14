@@ -1,7 +1,5 @@
 import React, {PropTypes} from 'react';
 import ReactDOM from 'react-dom';
-import keycode from 'keycode';
-import EventStack from 'active-event-stack';
 
 // Render into subtree is necessary for parent contexts to transfer over
 // For example, for react-router
@@ -13,17 +11,6 @@ export default class ModalPortal extends React.Component {
   static propTypes = {
     onClose: PropTypes.func, // This is called when the dialog should close
     children: PropTypes.node,
-  }
-  componentWillMount = () => {
-    /**
-     * This is done in the componentWillMount instead of the componentDidMount
-     * because this way, a modal that is a child of another will have register
-     * for events after its parent
-     */
-    this.eventToken = EventStack.addListenable([
-      ['click', this.clickHandler],
-      ['keydown', this.keydownHandler],
-    ]);
   }
   componentDidMount = () => {
     // Create a div and append it to the body
@@ -37,7 +24,14 @@ export default class ModalPortal extends React.Component {
     this._component = renderSubtreeIntoContainer(this, this.props.children, this._target);
   }
   componentWillUnmount = () => {
-    EventStack.removeListenable(this.eventToken);
+    /**
+     * Let this be some discussion about fading out the components on unmount.
+     * Right now, there is the issue that if a stack of components are layered
+     * on top of each other, and you programmatically dismiss the bottom one,
+     * it actually takes some time for the animation to catch up to the top one,
+     * because each modal doesn't send a dismiss signal to its children until
+     * it itself is totally gone...
+     */
 
     const done = () => {
       // Remove the node and clean up after the target
@@ -52,22 +46,6 @@ export default class ModalPortal extends React.Component {
     } else {
       // Call completion immediately
       done();
-    }
-  }
-  clickHandler = (event) => {
-    if (typeof this._component.shouldClickDismiss == 'function') {
-      if (this._component.shouldClickDismiss(event.target)) {
-        if (typeof this.props.onClose == 'function') {
-          this.props.onClose();
-        }
-      }
-    }
-  }
-  keydownHandler = (event) => {
-    if (keycode(event) == 'esc') {
-      if (typeof this.props.onClose == 'function') {
-        this.props.onClose();
-      }
     }
   }
   render = () => null // This doesn't actually return anything to render

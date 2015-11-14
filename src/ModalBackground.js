@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react';
-import ReactDOM from 'react-dom';
 
 export default class ModalBackground extends React.Component {
   static propTypes = {
@@ -25,20 +24,11 @@ export default class ModalBackground extends React.Component {
       componentIsLeaving: true,
     });
 
+    // There isn't a good way to figure out what the duration is exactly,
+    // because parts of the animation are carried out in CSS...
     setTimeout(() => {
       callback();
     }, this.props.duration);
-  }
-  shouldClickDismiss = (target) => {
-    // This piece of code isolates targets which are fake clicked by things
-    // like file-drop handlers
-    if (target.tagName === 'INPUT' && target.type === 'file') {
-      return false;
-    }
-
-    const dialogNode = ReactDOM.findDOMNode(this.refs.childRef);
-    if (target === dialogNode || dialogNode.contains(target)) return false;
-    return true;
   }
   componentDidMount = () => {
     // Create a delay so CSS will animate
@@ -49,7 +39,6 @@ export default class ModalBackground extends React.Component {
     const cloneProps = {
       onClose: this.props.onClose,
       componentIsLeaving: this.state.componentIsLeaving,
-      ref: 'childRef',
     };
     if (!cloneProps.onClose) {
       delete cloneProps.onClose;

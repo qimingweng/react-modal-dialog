@@ -5,6 +5,8 @@ import dynamics from 'dynamics.js';
 import centerComponent from 'react-center-component';
 import useSheet from './useSheet';
 import CloseCircle from './CloseCircle';
+import EventStack from 'active-event-stack';
+import keycode from 'keycode';
 
 // This decorator centers the dialog
 @centerComponent
@@ -50,6 +52,45 @@ export default class ModalDialog extends React.Component {
   static defaultProps = {
     width: 500,
     margin: 20,
+  }
+  componentWillMount = () => {
+    /**
+     * This is done in the componentWillMount instead of the componentDidMount
+     * because this way, a modal that is a child of another will have register
+     * for events after its parent
+     */
+    this.eventToken = EventStack.addListenable([
+      ['click', this.handleGlobalClick],
+      ['keydown', this.handleGlobalKeydown],
+    ]);
+  }
+  componentWillUnmount = () => {
+    EventStack.removeListenable(this.eventToken);
+  }
+  shouldClickDismiss = (event) => {
+    const {target} = event;
+    // This piece of code isolates targets which are fake clicked by things
+    // like file-drop handlers
+    if (target.tagName === 'INPUT' && target.type === 'file') {
+      return false;
+    }
+
+    if (target === this.refs.self || this.refs.self.contains(target)) return false;
+    return true;
+  }
+  handleGlobalClick = (event) => {
+    if (this.shouldClickDismiss(event)) {
+      if (typeof this.props.onClose == 'function') {
+        this.props.onClose();
+      }
+    }
+  }
+  handleGlobalKeydown = (event) => {
+    if (keycode(event) == 'esc') {
+      if (typeof this.props.onClose == 'function') {
+        this.props.onClose();
+      }
+    }
   }
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.componentIsLeaving && !this.props.componentIsLeaving) {
@@ -110,7 +151,11 @@ export default class ModalDialog extends React.Component {
 
     const divClassName = classNames(classes.dialog, className);
 
-    return <div {...rest} className={divClassName} style={dialogStyle}>
+    return <div {...rest}
+      ref="self"
+      className={divClassName}
+      style={dialogStyle}
+    >
       {
         onClose ?
         <a className={classes.closeButton} onClick={onClose}>

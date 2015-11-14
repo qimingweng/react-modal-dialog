@@ -100,12 +100,12 @@ export default class ModalDialog extends React.Component {
     } = this;
 
     const dialogStyle = {
-      ...style,
       position: 'absolute',
       marginBottom: margin,
       width: width,
       top: Math.max(topOffset, margin),
       left: leftOffset,
+      ...style,
     };
 
     const divClassName = classNames(classes.dialog, className);

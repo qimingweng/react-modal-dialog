@@ -40,6 +40,7 @@ export default class ModalDialog extends React.Component {
   static propTypes = {
     onClose: PropTypes.func, // required for the close button
     className: PropTypes.string, // css class in addition to .ReactModalDialog
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]), // width
     topOffset: PropTypes.number, // injected by @centerComponent
     leftOffset: PropTypes.number, // injected by @centerComponent
     margin: PropTypes.number.isRequired, // the margin around the dialog

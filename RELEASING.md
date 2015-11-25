@@ -13,3 +13,6 @@
   1. npm publish
 1. Push to Github
   1. git push
+1. Update website
+  1. Make sure dependencies exist for updating the website (a second repo in the same parent folder, etc...)
+  1. npm run github

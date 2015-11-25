@@ -1,40 +1,100 @@
-<!doctype html><html data-reactid=".s6grzdj9j4" data-react-checksum="-815972782"><head data-reactid=".s6grzdj9j4.0"><title data-reactid=".s6grzdj9j4.0.0">React Modal Dialog</title><link href="style.css" rel="stylesheet" data-reactid=".s6grzdj9j4.0.1"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" data-reactid=".s6grzdj9j4.0.2"/><link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/monokai_sublime.min.css" rel="stylesheet" data-reactid=".s6grzdj9j4.0.3"/><script src="//use.typekit.net/mak3sgg.js" data-reactid=".s6grzdj9j4.0.4"></script><script data-reactid=".s6grzdj9j4.0.5">try{Typekit.load();}catch(e){}</script><meta charset="utf-8" data-reactid=".s6grzdj9j4.0.6"/><meta name="viewport" content="initial-scale=1, maximum-scale=1" data-reactid=".s6grzdj9j4.0.7"/></head><body data-reactid=".s6grzdj9j4.1"><div id="home-page" data-reactid=".s6grzdj9j4.1.0"><header data-reactid=".s6grzdj9j4.1.0.0"><div style="width:600px;margin:0 auto;" data-reactid=".s6grzdj9j4.1.0.0.0"><h1 data-reactid=".s6grzdj9j4.1.0.0.0.0">React Modal Dialog</h1><h2 data-reactid=".s6grzdj9j4.1.0.0.0.1">A simple, idiomatic, and declarative way to launch modal dialogs in ReactJS</h2><a class="header-link" data-reactid=".s6grzdj9j4.1.0.0.0.2"><span data-reactid=".s6grzdj9j4.1.0.0.0.2.0">Open A Modal</span></a><a class="header-link" href="https://github.com/qimingweng/react-modal-dialog" data-reactid=".s6grzdj9j4.1.0.0.0.3">Github</a></div></header><section class="body-section" data-reactid=".s6grzdj9j4.1.0.1"><div style="width:600px;margin:0 auto;" data-reactid=".s6grzdj9j4.1.0.1.0"><div data-reactid=".s6grzdj9j4.1.0.1.0.0"><h1 id="idiomatic-syntax">Idiomatic Syntax</h1>
+<!doctype html><html data-reactid=".rcpednz8cg" data-react-checksum="-2022225044"><head data-reactid=".rcpednz8cg.0"><title data-reactid=".rcpednz8cg.0.0">React Modal Dialog</title><link href="style.css" rel="stylesheet" data-reactid=".rcpednz8cg.0.1"/><link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet" data-reactid=".rcpednz8cg.0.2"/><link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.6/styles/monokai_sublime.min.css" rel="stylesheet" data-reactid=".rcpednz8cg.0.3"/><script src="//use.typekit.net/mak3sgg.js" data-reactid=".rcpednz8cg.0.4"></script><script data-reactid=".rcpednz8cg.0.5">try{Typekit.load();}catch(e){}</script><meta charset="utf-8" data-reactid=".rcpednz8cg.0.6"/><meta name="viewport" content="initial-scale=1, maximum-scale=1" data-reactid=".rcpednz8cg.0.7"/></head><body data-reactid=".rcpednz8cg.1"><div id="home-page" data-reactid=".rcpednz8cg.1.0"><header data-reactid=".rcpednz8cg.1.0.0"><div style="width:600px;margin:0 auto;" data-reactid=".rcpednz8cg.1.0.0.0"><h1 data-reactid=".rcpednz8cg.1.0.0.0.0">React Modal Dialog</h1><h2 data-reactid=".rcpednz8cg.1.0.0.0.1">A simple, idiomatic, and declarative way to launch modal dialogs in ReactJS</h2><a class="header-link" data-reactid=".rcpednz8cg.1.0.0.0.2"><span data-reactid=".rcpednz8cg.1.0.0.0.2.0">Open A Modal</span></a><a class="header-link" href="https://github.com/qimingweng/react-modal-dialog" data-reactid=".rcpednz8cg.1.0.0.0.3">Github</a></div></header><section class="body-section" data-reactid=".rcpednz8cg.1.0.1"><div style="width:600px;margin:0 auto;" data-reactid=".rcpednz8cg.1.0.1.0"><div data-reactid=".rcpednz8cg.1.0.1.0.0"><h1 id="react-modal-dialog">React Modal Dialog</h1>
+<p><a href="https://www.npmjs.com/package/react-modal-dialog"><img src="https://img.shields.io/npm/v/react-modal-dialog.svg?style=flat-square" alt="npm"></a></p>
+<p><a href="http://www.qimingweng.com/react-modal-dialog/">Check out the demo here</a></p>
+<p>React modal dialog is an idiomatic way to represent modal dialogs in react. It is nested inside the components that require them, and can themselves nest other dialogs. There are no global switches or state, and the contents of the dialog are defined where you need it.</p>
+<h2 id="design-considerations">Design Considerations</h2>
+<p>React modal dialog was built with a few fundamental assumptions and constraints in mind:</p>
+<ul>
+<li>When you have two dialogs, the ESC key will only close the top level one (there is an event manager implemented like a stack)</li>
+<li>The package needs to support dialogs that bounce in with a spring animation (not just standard ease-in, ease-out), but still be flexible enough for other designs</li>
+<li>Dialogs that are too long will scroll in their viewport</li>
+<li>Dialogs need to be able to show a loading spinner, that means the background and the content need to be separate components</li>
+</ul>
+<h1 id="idiomatic-syntax">Idiomatic Syntax</h1>
+<p>From the very beginning, the goal was a syntax very similar to the one below, where the modal component is held within a button or the view with the closest common ancestor of two buttons.</p>
 <pre class="hljs"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Button</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   state = {
-    isShowingModal: <span class="hljs-literal">false</span>
+    isShowingModal: <span class="hljs-literal">false</span>,
   }
-  openModal = () =&gt; {
-    <span class="hljs-keyword">this</span>.setState({isShowingModal: <span class="hljs-literal">true</span>});
-  }
+  handleClick = () =&gt; <span class="hljs-keyword">this</span>.setState({isShowingModal: <span class="hljs-literal">true</span>})
+  handleClose = () =&gt; <span class="hljs-keyword">this</span>.setState({isShowingModal: <span class="hljs-literal">false</span>})
   render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.openModal}</span>&gt;</span>
-        Button Text
-        {this.state.isShowingModal ?
-          <span class="hljs-tag">&lt;<span class="hljs-title">ModalComponentHere</span>/&gt;</span>
-        : null}
-      <span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
-    )</span>
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.handleClick}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span>Button Text<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+      {
+        this.state.isShowingModal &amp;&amp;
+        <span class="hljs-tag">&lt;<span class="hljs-title">ModalComponentHere</span> <span class="hljs-attribute">onClose</span>=<span class="hljs-value">{this.handleClose}</span>/&gt;</span>
+      }
+    <span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>;</span>
   }
 }</pre><h1 id="actual-usage">Actual Usage</h1>
-<pre class="hljs"><span class="hljs-comment">// Usage:</span>
-
+<p>This is how react-modal-dialog works. You can create a component that wraps ModalContainer and ModalDialog into one CustomDialog, but the reason I have separated is so that I can add a loading spinner above the background but below the dialog.</p>
+<pre class="hljs"><span class="hljs-keyword">import</span> React, {PropTypes} <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> {ModalContainer, ModalDialog} <span class="hljs-keyword">from</span> <span class="hljs-string">'react-modal-dialog'</span>;
 
-<span class="hljs-comment">// In a render function:</span>
-&lt;ModalContainer onClose={...}&gt;
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ModalDialog</span> <span class="hljs-attribute">onClose</span>=<span class="hljs-value">{...}</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Dialog Content<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>More Content. Anything goes here<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-title">ModalDialog</span>&gt;</span>
-<span class="hljs-tag">&lt;/<span class="hljs-title">ModalContainer</span>&gt;</span></span></pre><h1 id="loading-spinners">Loading Spinners</h1>
-<pre class="hljs"><span class="hljs-keyword">import</span> ReactSpinner <span class="hljs-keyword">from</span> <span class="hljs-string">'react-spinjs'</span>;
-
-<span class="hljs-comment">// In a render function</span>
-&lt;ModalContainer onClose={...}&gt;
-  {
-    isLoading ?
-    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">ReactSpinner</span>/&gt;</span> :
-    <span class="hljs-tag">&lt;<span class="hljs-title">ModalDialog</span> <span class="hljs-attribute">onClose</span>=<span class="hljs-value">{...}</span>/&gt;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">View</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  state = {
+    isShowingModal: <span class="hljs-literal">false</span>,
   }
-<span class="hljs-tag">&lt;/<span class="hljs-title">ModalContainer</span> <span class="hljs-attribute">onClose</span>=<span class="hljs-value">{...}</span>&gt;</span></span></pre></div></div></section></div><script id="initial-props" type="application/json" data-reactid=".s6grzdj9j4.1.1">{}</script><script src="bundle.js" data-reactid=".s6grzdj9j4.1.2"></script></body></html>
+  handleClick = () =&gt; <span class="hljs-keyword">this</span>.setState({isShowingModal: <span class="hljs-literal">true</span>})
+  handleClose = () =&gt; <span class="hljs-keyword">this</span>.setState({isShowingModal: <span class="hljs-literal">false</span>})
+  render() {
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.handleClick}</span>&gt;</span>
+      {
+        this.state.isShowingModal &amp;&amp;
+        <span class="hljs-tag">&lt;<span class="hljs-title">ModalContainer</span> <span class="hljs-attribute">onClose</span>=<span class="hljs-value">{this.handleClose}</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">ModalDialog</span> <span class="hljs-attribute">onClose</span>=<span class="hljs-value">{this.handleClose}</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Dialog Content<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+            <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>More Content. Anything goes here<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+          <span class="hljs-tag">&lt;/<span class="hljs-title">ModalDialog</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">ModalContainer</span>&gt;</span>
+      }
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>;</span>
+  }
+}</pre><h2 id="loading-spinners">Loading Spinners</h2>
+<pre class="hljs"><span class="hljs-keyword">import</span> React, {PropTypes} <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> {ModalContainer, ModalDialog} <span class="hljs-keyword">from</span> <span class="hljs-string">'react-modal-dialog'</span>;
+<span class="hljs-keyword">import</span> ReactSpinner <span class="hljs-keyword">from</span> <span class="hljs-string">'react-spinjs'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">View</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+  static propTypes = {
+    <span class="hljs-comment">// This view takes a isLoading property</span>
+    isLoading: PropTypes.bool,
+  }
+  state = {
+    isShowingModal: <span class="hljs-literal">false</span>,
+  }
+  handleClick = () =&gt; <span class="hljs-keyword">this</span>.setState({isShowingModal: <span class="hljs-literal">true</span>})
+  handleClose = () =&gt; <span class="hljs-keyword">this</span>.setState({isShowingModal: <span class="hljs-literal">false</span>})
+  render() {
+    <span class="hljs-keyword">const</span> {
+      props: {
+        isLoading,
+      },
+    } = <span class="hljs-keyword">this</span>;
+
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.handleClick}</span>&gt;</span>
+      {
+        this.state.isShowingModal &amp;&amp;
+        <span class="hljs-tag">&lt;<span class="hljs-title">ModalContainer</span> <span class="hljs-attribute">onClose</span>=<span class="hljs-value">{this.handleClose}</span>&gt;</span>
+          {
+            isLoading ?
+            <span class="hljs-tag">&lt;<span class="hljs-title">ReactSpinner</span>/&gt;</span> :
+            <span class="hljs-tag">&lt;<span class="hljs-title">ModalDialog</span> <span class="hljs-attribute">onClose</span>=<span class="hljs-value">{this.handleClose}</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>Dialog Content<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+              <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>More Content. Anything goes here<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+            <span class="hljs-tag">&lt;/<span class="hljs-title">ModalDialog</span>&gt;</span>
+          }
+        <span class="hljs-tag">&lt;/<span class="hljs-title">ModalContainer</span>&gt;</span>
+      }
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>;</span>
+  }
+}</pre><h1 id="styles-css-and-images-">Styles (CSS and Images)</h1>
+<p>In version 1.0+, <code>react-modal-dialog</code> relies on <a href="https://github.com/jsstyles/jss">JSS</a> and SVG to create all the styles and images.</p>
+<h2 id="for-your-own-implementation">For Your Own Implementation</h2>
+<p>For now, I recommend you check out the source code of this project, as it is quite simple, to really get an understanding of how this dialog works. I&#39;ve spent a lot of time trying many paradigms (you can read about all that <a href="#todo">here</a>), and I&#39;ve settled on this one for good reasons.</p>
+<p>The hardest part about dialogs is their architecture, not the UI or specific implementation. Feel free to swap out your own ModalDialog class into my existing ModalContainer, or disassemble ModalContainer into your own portal and background class.</p>
+<p>To get the esc key to only close the top dialog when there are two modal dialogs, I employed the use of an event controller. However, you may find this to be peculiar or you may want to attach your dialogs to your own event controller. If that&#39;s true, you may want to branch this project to edit the code in <code>componentDidMount</code> and <code>componentWillUnmount</code> of <code>ModalPortal</code>.</p>
+<h1 id="contributing">Contributing</h1>
+<p>Feel free to send pull requests, or help document this project more.</p>
+</div></div></section></div><script id="initial-props" type="application/json" data-reactid=".rcpednz8cg.1.1">{}</script><script src="bundle.js" data-reactid=".rcpednz8cg.1.2"></script></body></html>

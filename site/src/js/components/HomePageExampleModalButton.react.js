@@ -45,7 +45,7 @@ class FirstModal extends React.Component {
 
     setTimeout(() => {
       this.setState({isLoading: false});
-    }, 500);
+    }, 1500);
   }
   render() {
     return <ModalContainer onClose={this.props.onClose}>

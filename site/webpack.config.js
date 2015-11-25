@@ -46,6 +46,7 @@ module.exports = {
       postcss: path.join(__dirname, './node_modules/postcss-loader'),
       sass: path.join(__dirname, './node_modules/sass-loader'),
       css: path.join(__dirname, './node_modules/css-loader'),
+      raw: path.join(__dirname, './node_modules/raw-loader'),
     },
   },
   devtool: IS_DEV ? 'cheap-module-source-map' : undefined,

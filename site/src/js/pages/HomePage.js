@@ -29,7 +29,7 @@ export default class HomePage extends React.Component {
   }
 }
 
-const markdown = require('raw!../markdown/HomePage.md');
+const markdown = require('raw!../../../../README.md');
 
 class HomeContent extends React.Component {
   render() {

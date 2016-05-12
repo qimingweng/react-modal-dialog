@@ -126,3 +126,7 @@ To get the esc key to only close the top dialog when there are two modal dialogs
 # Contributing
 
 Feel free to send pull requests, or help document this project more.
+
+# A Note on `package.json`
+
+package.json points to `src/index.js`, so that it is easy to develop against. However, this folder does not exist in the npm distribution, so the whole thing falls back to the `/index.js` at the root, which points to the compiled `/lib/index.js`.

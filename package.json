@@ -28,7 +28,7 @@
     "jss": "^3.1.0",
     "keycode": "^2.1.0",
     "lodash": "^3.9.3",
-    "react-center-component": "^2.0.1",
+    "react-center-component": "^3.0.0",
     "react-jss": "^2.0.6"
   },
   "peerDependencies": {

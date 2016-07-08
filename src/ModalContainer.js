@@ -1,4 +1,4 @@
-import React, {PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 
 import ModalPortal from './ModalPortal';
 import ModalBackground from './ModalBackground';

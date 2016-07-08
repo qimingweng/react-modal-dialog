@@ -2,23 +2,22 @@ import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import dynamics from 'dynamics.js';
-import centerComponent from 'react-center-component';
-import useSheet from './useSheet';
 import CloseCircle from './CloseCircle';
 import EventStack from 'active-event-stack';
 import keycode from 'keycode';
+import { StyleSheet, css } from 'aphrodite';
 
-@useSheet({
+const styles = StyleSheet.create({
   dialog: {
     boxSizing: 'border-box',
     position: 'relative',
-    background: 'white',
+    backgroundColor: 'white',
     padding: 20,
-    color: '#333',
+    color: '#333333',
     boxShadow: '0px 2px 15px rgba(0, 0, 0, 0.4)',
     borderRadius: 10,
   },
-  'closeButton': {
+  closeButton: {
     position: 'absolute',
     top: 0,
     left: -50,
@@ -26,36 +25,26 @@ import keycode from 'keycode';
     width: 40,
     height: 40,
     transition: 'transform 0.1s',
-    // backgroundImage: require('../images/modal-dialog-close.png'),
-    // backgroundRepeat: 'no-repeat',
-    // backgroundSize: '40px 40px',
-    '&:hover': {
+    ':hover': {
       transform: 'scale(1.1)',
     },
   },
-})
-// This decorator centers the dialog
-@centerComponent
-export default class ModalDialog extends React.Component {
+});
+
+export default class FlexDialog extends React.Component {
   static propTypes = {
-    onClose: PropTypes.func, // required for the close button
-    className: PropTypes.string, // css class in addition to .ReactModalDialog
-    width: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]), // width
-    topOffset: PropTypes.number, // injected by @centerComponent
-    leftOffset: PropTypes.number, // injected by @centerComponent
-    margin: PropTypes.number.isRequired, // the margin around the dialog
     children: PropTypes.node,
+    className: PropTypes.string,
     componentIsLeaving: PropTypes.bool,
+    margin: PropTypes.number.isRequired,
+    onClose: PropTypes.func,
     style: PropTypes.object,
-    sheet: PropTypes.object,
-    left: PropTypes.number,
-    recenter: PropTypes.func.isRequired,
-    top: PropTypes.number,
-  }
+    width: PropTypes.oneOfType([ PropTypes.number, PropTypes.string ]), // width
+  };
   static defaultProps = {
     width: 'auto',
     margin: 20,
-  }
+  };
   componentWillMount = () => {
     /**
      * This is done in the componentWillMount instead of the componentDidMount
@@ -67,15 +56,10 @@ export default class ModalDialog extends React.Component {
       [ 'keydown', this.handleGlobalKeydown ],
     ]);
   };
+  componentDidMount = () => {
+    this.animateIn();
+  };
   componentWillReceiveProps = (nextProps) => {
-    if (nextProps.topOffset !== null && this.props.topOffset === null) {
-      // This means we are getting top information for the first time
-      if (!this.didAnimateInAlready) {
-        // Double check we have not animated in yet
-        this.animateIn();
-      }
-    }
-
     if (nextProps.componentIsLeaving && !this.props.componentIsLeaving) {
       const node = ReactDOM.findDOMNode(this);
       dynamics.animate(node, {
@@ -120,7 +104,7 @@ export default class ModalDialog extends React.Component {
     this.didAnimateInAlready = true;
 
     // Animate this node once it is mounted
-    const node = ReactDOM.findDOMNode(this);
+    const node = ReactDOM.findDOMNode(this.refs.self);
 
     // This sets the scale...
     if (document.body.style.transform == null) {
@@ -143,44 +127,46 @@ export default class ModalDialog extends React.Component {
         children,
         className,
         componentIsLeaving, // eslint-disable-line no-unused-vars, this line is used to remove parameters from rest
-        left, // eslint-disable-line no-unused-vars, this line is used to remove parameters from rest
-        leftOffset,
         margin,
         onClose,
-        recenter, // eslint-disable-line no-unused-vars, this line is used to remove parameters from rest
-        sheet: { classes },
         style,
-        top, // eslint-disable-line no-unused-vars, this line is used to remove parameters from rest
-        topOffset,
         width,
         ...rest,
       },
     } = this;
 
-    const dialogStyle = {
-      position: 'absolute',
-      marginBottom: margin,
-      width: width,
-      top: Math.max(topOffset, margin),
-      left: leftOffset,
-      ...style,
-    };
-
-    const divClassName = classNames(classes.dialog, className);
-
-    return <div {...rest}
-      ref="self"
-      className={divClassName}
-      style={dialogStyle}
+    return <div
+      style={{
+        position: 'absolute',
+        display: 'flex',
+        width: '100%',
+        minHeight: '100%',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        flexDirection: 'column',
+        overflowY: 'auto',
+      }}
     >
-      {
-        onClose ?
-        <a className={classes.closeButton} onClick={onClose}>
-          <CloseCircle diameter={40}/>
-        </a> :
-        null
-      }
-      {children}
+      <div style={{ display: 'flex', flexDirection: 'column', overflow: 'visible', padding: margin }}>
+        <div
+          ref="self"
+          className={classNames(css(styles.dialog), className)}
+          style={{
+            ...style,
+            display: 'block',
+            width: width,
+          }}
+          {...rest}
+        >
+          {
+            onClose != null &&
+            <a className={css(styles.closeButton)} onClick={onClose}>
+              <CloseCircle diameter={40}/>
+            </a>
+          }
+          {children}
+        </div>
+      </div>
     </div>;
   };
 }

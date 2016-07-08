@@ -136,6 +136,10 @@ export default class ModalDialog extends React.Component {
         sheet: {
           classes,
         },
+        componentIsLeaving,
+        top,
+        left,
+        recenter,
         ...rest,
       },
     } = this;

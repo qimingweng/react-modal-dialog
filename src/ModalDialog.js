@@ -151,7 +151,7 @@ export default class ModalDialog extends React.Component {
 
     const divClassName = classNames(classes.dialog, className);
 
-    return <div {...rest}
+    return <div
       ref="self"
       className={divClassName}
       style={dialogStyle}

@@ -136,6 +136,10 @@ export default class ModalDialog extends React.Component {
         sheet: {
           classes,
         },
+        componentIsLeaving,
+        top,
+        left,
+        recenter,
         ...rest,
       },
     } = this;
@@ -151,7 +155,7 @@ export default class ModalDialog extends React.Component {
 
     const divClassName = classNames(classes.dialog, className);
 
-    return <div
+    return <div {...rest}
       ref="self"
       className={divClassName}
       style={dialogStyle}

@@ -154,6 +154,7 @@ export default class FlexDialog extends React.Component {
           style={{
             ...style,
             display: 'block',
+            boxSizing: 'border-box',
             width: width,
           }}
           {...rest}

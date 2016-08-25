@@ -58,9 +58,6 @@ export default class ModalDialog extends React.Component {
     width: 'auto',
     margin: 20,
   }
-  static setUseDefaultStyles(use) {
-    useDefaultStyles = use;
-  }
 
   componentWillMount = () => {
     /**
@@ -196,3 +193,7 @@ export default class ModalDialog extends React.Component {
     </div>;
   };
 }
+
+ModalDialog.setUseDefaultStyles = (use) => {
+  useDefaultStyles = use;
+};

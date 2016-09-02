@@ -1,13 +1,5 @@
-import ModalPortal from './ModalPortal';
-import ModalBackground from './ModalBackground';
-import ModalContainer from './ModalContainer';
-import ModalDialog from './ModalDialog';
-import FlexDialog from './FlexDialog';
-
-export default {
-  ModalPortal,
-  ModalBackground,
-  ModalContainer,
-  ModalDialog,
-  FlexDialog,
-};
+export ModalPortal from './ModalPortal';
+export ModalBackground from './ModalBackground';
+export ModalContainer from './ModalContainer';
+export ModalDialog from './ModalDialog';
+export FlexDialog from './FlexDialog';

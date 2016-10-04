@@ -51,10 +51,13 @@ export default class ModalDialog extends React.Component {
     left: PropTypes.number,
     recenter: PropTypes.func.isRequired,
     top: PropTypes.number,
+    autoDismiss: PropTypes.number, // seconds before automatically dismissing dialog
+    dismissEverywhere: PropTypes.bool
   }
   static defaultProps = {
     width: 'auto',
     margin: 20,
+    dismissEverywhere: false
   }
   componentWillMount = () => {
     /**
@@ -67,6 +70,17 @@ export default class ModalDialog extends React.Component {
       [ 'keydown', this.handleGlobalKeydown ],
     ]);
   };
+  componentDidMount = () => {
+    if (typeof this.props.autoDismiss === 'number') {
+      setTimeout(
+        function () {
+          if (typeof this.props.onClose === 'function') {
+            this.props.onClose();
+          }
+        }.bind(this),
+      1000 * this.props.autoDismiss);
+    }
+  }
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.topOffset !== null && this.props.topOffset === null) {
       // This means we are getting top information for the first time
@@ -92,6 +106,9 @@ export default class ModalDialog extends React.Component {
   };
   didAnimateInAlready = false;
   shouldClickDismiss = (event) => {
+    if (this.props.dismissEverywhere) {
+      return true;
+    }
     const { target } = event;
     // This piece of code isolates targets which are fake clicked by things
     // like file-drop handlers
@@ -140,9 +157,11 @@ export default class ModalDialog extends React.Component {
   render = () => {
     const {
       props: {
+        autoDismiss,
         children,
         className,
         componentIsLeaving, // eslint-disable-line no-unused-vars, this line is used to remove parameters from rest
+        dismissEverywhere,
         left, // eslint-disable-line no-unused-vars, this line is used to remove parameters from rest
         leftOffset,
         margin,

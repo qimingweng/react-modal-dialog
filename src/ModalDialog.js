@@ -51,6 +51,7 @@ export default class ModalDialog extends React.Component {
     left: PropTypes.number,
     recenter: PropTypes.func.isRequired,
     top: PropTypes.number,
+    autoDismiss: PropTypes.number // seconds before automatically dismissing dialog
   }
   static defaultProps = {
     width: 'auto',
@@ -67,6 +68,17 @@ export default class ModalDialog extends React.Component {
       [ 'keydown', this.handleGlobalKeydown ],
     ]);
   };
+  componentDidMount = () => {
+    if (typeof this.props.autoDismiss === 'number') {
+      setTimeout(
+        function () {
+          if (typeof this.props.onClose === 'function') {
+            this.props.onClose();
+          }
+        }.bind(this),
+      1000 * this.props.autoDismiss);
+    }
+  }
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.topOffset !== null && this.props.topOffset === null) {
       // This means we are getting top information for the first time
@@ -140,6 +152,7 @@ export default class ModalDialog extends React.Component {
   render = () => {
     const {
       props: {
+        autoDismiss,
         children,
         className,
         componentIsLeaving, // eslint-disable-line no-unused-vars, this line is used to remove parameters from rest

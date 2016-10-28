@@ -16,6 +16,9 @@ export default class ModalPortal extends React.Component {
 
     // Mount a component on that div
     this._component = renderSubtreeIntoContainer(this, this.props.children, this._target);
+    
+    // Add indicator class to body
+    document.body.classList.toggle('modal-dialog-opened');
   };
   componentDidUpdate = () => {
     // When the child component updates, we have to make sure the content rendered to the DOM is updated to
@@ -45,6 +48,9 @@ export default class ModalPortal extends React.Component {
       // Call completion immediately
       done();
     }
+    
+    // remove indicator class from document body
+    document.body.classList.remove('modal-dialog-opened');
   };
   _target = null; // HTMLElement, a div that is appended to the body
   _component = null; // ReactComponent, which is mounted on the target

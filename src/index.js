@@ -4,7 +4,7 @@ import ModalContainer from './ModalContainer';
 import ModalDialog from './ModalDialog';
 import FlexDialog from './FlexDialog';
 
-export default {
+export {
   ModalPortal,
   ModalBackground,
   ModalContainer,

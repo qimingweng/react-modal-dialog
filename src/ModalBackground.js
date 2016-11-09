@@ -58,6 +58,7 @@ export default class ModalBackground extends React.Component {
       width: '100%',
       transition: `opacity ${this.props.duration / 1000}s`,
       WebkitTransition: `opacity ${this.props.duration / 1000}s`,
+      cursor: 'pointer',
     };
 
     const containerStyle = {
@@ -70,10 +71,14 @@ export default class ModalBackground extends React.Component {
       width: '100%',
       transition: `opacity ${this.props.duration / 1000}s`,
       WebkitTransition: `opacity ${this.props.duration / 1000}s`,
+      cursor: 'pointer',
     };
 
     const style = {
-      position: 'absolute',
+      // This position needs to be fixed so that when the html/body is bigger
+      // than the viewport, this background still shows up in the center.
+      // This is particularly useful on edusight-home pages.
+      position: 'fixed',
       top: 0,
       left: 0,
       bottom: 0,

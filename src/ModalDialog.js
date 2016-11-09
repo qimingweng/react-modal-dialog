@@ -8,6 +8,8 @@ import CloseCircle from './CloseCircle';
 import EventStack from 'active-event-stack';
 import keycode from 'keycode';
 
+let useDefaultStyles = true;
+
 @useSheet({
   dialog: {
     boxSizing: 'border-box',
@@ -56,6 +58,7 @@ export default class ModalDialog extends React.Component {
     width: 'auto',
     margin: 20,
   }
+
   componentWillMount = () => {
     /**
      * This is done in the componentWillMount instead of the componentDidMount
@@ -166,7 +169,13 @@ export default class ModalDialog extends React.Component {
       ...style,
     };
 
-    const divClassName = classNames(classes.dialog, className);
+    let divClassName = className;
+    let closeClassName = '';
+
+    if (useDefaultStyles) {
+        divClassName = classNames(classes.dialog, className);
+        closeClassName = classes.closeButton;
+    }
 
     return <div {...rest}
       ref="self"
@@ -175,7 +184,7 @@ export default class ModalDialog extends React.Component {
     >
       {
         onClose ?
-        <a className={classes.closeButton} onClick={onClose}>
+        <a className={closeClassName} onClick={onClose}>
           <CloseCircle diameter={40}/>
         </a> :
         null
@@ -184,3 +193,7 @@ export default class ModalDialog extends React.Component {
     </div>;
   };
 }
+
+ModalDialog.setUseDefaultStyles = (use) => {
+  useDefaultStyles = use;
+};

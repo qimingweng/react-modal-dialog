@@ -9,6 +9,8 @@ export default class ModalPortal extends React.Component {
   static propTypes = {
     onClose: PropTypes.func, // This is called when the dialog should close
     children: PropTypes.node,
+    onModalDidMount: PropTypes.func, // optional, called on mount
+    onModalWillUnmount: PropTypes.func, // optional, called on unmount
   };
   componentDidMount = () => {
     // Create a div and append it to the body
@@ -16,6 +18,11 @@ export default class ModalPortal extends React.Component {
 
     // Mount a component on that div
     this._component = renderSubtreeIntoContainer(this, this.props.children, this._target);
+
+    // A handler call in case you want to do something when a modal opens, like add a class to the body or something
+    if (typeof this.props.onModalDidMount === 'function') {
+      this.props.onModalDidMount();
+    }
   };
   componentDidUpdate = () => {
     // When the child component updates, we have to make sure the content rendered to the DOM is updated to
@@ -32,6 +39,12 @@ export default class ModalPortal extends React.Component {
      */
 
     const done = () => {
+      // Modal will unmount now
+      // Call a handler, like onModalDidMount
+      if (typeof this.props.onModalWillUnmount === 'function') {
+        this.props.onModalWillUnmount();
+      }
+
       // Remove the node and clean up after the target
       ReactDOM.unmountComponentAtNode(this._target);
       document.body.removeChild(this._target);

@@ -1,16 +1,16 @@
-import jssClass from 'jss';
-import reactJss from 'react-jss';
-import jssPx from 'jss-px';
+import {create} from 'jss';
+import {create as createInjectSheet} from 'react-jss';
+import jssDefaultUnit from 'jss-default-unit';
 import jssCamelCase from 'jss-camel-case';
 import jssNested from 'jss-nested';
+import jssVendorPrefixer from 'jss-vendor-prefixer';
 
-const jss = jssClass.create();
+const jss = create();
 if (typeof window !== 'undefined') {
-  const vendorPrefixer = require('jss-vendor-prefixer').default;
-  jss.use(vendorPrefixer());
+  jss.use(jssVendorPrefixer());
 }
-jss.use(jssPx());
+jss.use(jssDefaultUnit());
 jss.use(jssCamelCase());
 jss.use(jssNested());
 
-export default reactJss(jss);
+export default createInjectSheet(jss);

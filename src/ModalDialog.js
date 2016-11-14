@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import classNames from 'classnames';
 import dynamics from 'dynamics.js';
 import centerComponent from 'react-center-component';
-import useSheet from './useSheet';
 import CloseCircle from './CloseCircle';
 import EventStack from 'active-event-stack';
 import keycode from 'keycode';
+import { inject } from 'narcissus';
 
-@useSheet({
+const styles = {
   dialog: {
     boxSizing: 'border-box',
     position: 'relative',
@@ -18,7 +18,7 @@ import keycode from 'keycode';
     boxShadow: '0px 2px 15px rgba(0, 0, 0, 0.4)',
     borderRadius: 10,
   },
-  'closeButton': {
+  closeButton: {
     position: 'absolute',
     top: 0,
     left: -50,
@@ -29,11 +29,12 @@ import keycode from 'keycode';
     // backgroundImage: require('../images/modal-dialog-close.png'),
     // backgroundRepeat: 'no-repeat',
     // backgroundSize: '40px 40px',
-    '&:hover': {
+    '&&:hover': {
       transform: 'scale(1.1)',
     },
   },
-})
+};
+
 // This decorator centers the dialog
 @centerComponent
 export default class ModalDialog extends React.Component {
@@ -47,7 +48,6 @@ export default class ModalDialog extends React.Component {
     children: PropTypes.node,
     componentIsLeaving: PropTypes.bool,
     style: PropTypes.object,
-    sheet: PropTypes.object,
     left: PropTypes.number,
     recenter: PropTypes.func.isRequired,
     top: PropTypes.number,
@@ -148,7 +148,6 @@ export default class ModalDialog extends React.Component {
         margin,
         onClose,
         recenter, // eslint-disable-line no-unused-vars, this line is used to remove parameters from rest
-        sheet: { classes },
         style,
         top, // eslint-disable-line no-unused-vars, this line is used to remove parameters from rest
         topOffset,
@@ -166,7 +165,7 @@ export default class ModalDialog extends React.Component {
       ...style,
     };
 
-    const divClassName = classNames(classes.dialog, className);
+    const divClassName = classNames(inject(styles.dialog), className);
 
     return <div {...rest}
       ref="self"
@@ -175,7 +174,7 @@ export default class ModalDialog extends React.Component {
     >
       {
         onClose ?
-        <a className={classes.closeButton} onClick={onClose}>
+        <a className={inject(styles.closeButton)} onClick={onClose}>
           <CloseCircle diameter={40}/>
         </a> :
         null

@@ -13,6 +13,12 @@ const routes = [
   '/',
 ];
 
+const babelConfig = {
+  // Map against require.resolve so that these paths are absolute to this package
+  presets: [ 'babel-preset-react', 'babel-preset-es2015', 'babel-preset-stage-0' ].map(require.resolve),
+  plugins: [ 'babel-plugin-transform-flow-strip-types', 'babel-plugin-add-module-exports', 'babel-plugin-transform-decorators-legacy' ].map(require.resolve),
+};
+
 module.exports = {
   entry: './src/js/index.js',
   output: {
@@ -22,7 +28,7 @@ module.exports = {
   },
   module: {
     loaders: [
-      {test: /\.js?$/, exclude: /node_modules/, loader: 'babel'},
+      {test: /\.js?$/, exclude: /node_modules/, loader: 'babel-loader', query: babelConfig },
       {test: /\.(png|jpg)$/, loader: 'url?limit=8096'},
       {test: /\.scss$/, loader: ExtractTextPlugin.extract('css?sourceMap!postcss?sourceMap!sass?sourceMap')},
     ],
@@ -40,14 +46,7 @@ module.exports = {
     extensions: ['', '.js'],
   },
   resolveLoader: {
-    alias: {
-      babel: path.join(__dirname, './node_modules/babel-loader'),
-      url: path.join(__dirname, './node_modules/url-loader'),
-      postcss: path.join(__dirname, './node_modules/postcss-loader'),
-      sass: path.join(__dirname, './node_modules/sass-loader'),
-      css: path.join(__dirname, './node_modules/css-loader'),
-      raw: path.join(__dirname, './node_modules/raw-loader'),
-    },
+    root: [ path.resolve('./node_modules') ],
   },
   devtool: IS_DEV ? 'cheap-module-source-map' : undefined,
   postcss() {

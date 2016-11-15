@@ -115,6 +115,8 @@ class View extends React.Component {
 
 In version 4.0+ react-modal-dialog has finally shifted to using [narcissus](https://github.com/qimingweng/narcissus), narcissus makes inline css styles sane, and also works in pure javascript so you don't have to spend time requiring css files awkwardly with NPM and packaging them in webpack with custom loaders yourself.
 
+For a similar reason of not having to deal with external dependencies or awkward loaders/hacked require statements, starting in 4.0+, react-modal-dialog uses hand-written svg for the one "image" that comes with the package, the close button.
+
 ## For Your Own Implementation
 
 For now, I recommend you check out the source code of this project, as it is quite simple, to really get an understanding of how this dialog works. I've spent a lot of time trying many paradigms (you can read about all that [here](#todo)), and I've settled on this one for good reasons.

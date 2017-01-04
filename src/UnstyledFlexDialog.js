@@ -44,7 +44,7 @@ export default class UnstyledFlexDialog extends React.Component {
   };
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.componentIsLeaving && !this.props.componentIsLeaving) {
-      const node = ReactDOM.findDOMNode(this);
+      const node = ReactDOM.findDOMNode(this.refs.self);
       dynamics.animate(node, {
         scale: 1.2,
         opacity: 0,

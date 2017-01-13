@@ -99,7 +99,7 @@ export default class ModalDialog extends React.Component {
       return false;
     }
 
-    if (target === this.refs.self || this.refs.self.contains(target)) return false;
+    if (target !== this.refs.self || this.refs.self.contains(target)) return false;
     return true;
   };
   handleGlobalClick = (event) => {

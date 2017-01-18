@@ -51,10 +51,12 @@ export default class ModalDialog extends React.Component {
     left: PropTypes.number,
     recenter: PropTypes.func.isRequired,
     top: PropTypes.number,
+    disableCloseOutside: PropTypes.bool,
   }
   static defaultProps = {
     width: 'auto',
     margin: 20,
+    disableCloseOutside: false,
   }
   componentWillMount = () => {
     /**
@@ -99,7 +101,11 @@ export default class ModalDialog extends React.Component {
       return false;
     }
 
-    if (target === this.refs.self || this.refs.self.contains(target)) return false;
+    if (this.props.disableCloseOutside) {
+      if (target !== this.refs.self || this.refs.self.contains(target)) return false;
+    } else {
+      if (target === this.refs.self || this.refs.self.contains(target)) return false;
+    }
     return true;
   };
   handleGlobalClick = (event) => {

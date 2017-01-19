@@ -52,7 +52,7 @@ class FirstModal extends React.Component {
       {this.state.isLoading ?
         <ReactSpinner color="white"/>
         :
-        <ModalDialog onClose={this.props.onClose} className="example-dialog" disableCloseOutside={true}>
+        <ModalDialog onClose={this.props.onClose} className="example-dialog" dismissOnBackgroundClick={false}>
           {this.state.showSecondModal ?
             <SecondModal onClose={this.closeModal}/>
           : null}

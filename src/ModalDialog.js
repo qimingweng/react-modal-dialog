@@ -51,12 +51,12 @@ export default class ModalDialog extends React.Component {
     left: PropTypes.number,
     recenter: PropTypes.func.isRequired,
     top: PropTypes.number,
-    disableCloseOutside: PropTypes.bool,
+    dismissOnBackgroundClick: PropTypes.bool,
   }
   static defaultProps = {
     width: 'auto',
     margin: 20,
-    disableCloseOutside: false,
+    dismissOnBackgroundClick: true,
   }
   componentWillMount = () => {
     /**
@@ -100,8 +100,7 @@ export default class ModalDialog extends React.Component {
     if (target.tagName === 'INPUT' && target.type === 'file') {
       return false;
     }
-
-    if (this.props.disableCloseOutside) {
+    if (!this.props.dismissOnBackgroundClick) {
       if (target !== this.refs.self || this.refs.self.contains(target)) return false;
     } else {
       if (target === this.refs.self || this.refs.self.contains(target)) return false;

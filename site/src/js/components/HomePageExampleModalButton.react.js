@@ -52,7 +52,7 @@ class FirstModal extends React.Component {
       {this.state.isLoading ?
         <ReactSpinner color="white"/>
         :
-        <ModalDialog onClose={this.props.onClose} className="example-dialog">
+        <ModalDialog onClose={this.props.onClose} className="example-dialog" disableCloseOutside={true}>
           {this.state.showSecondModal ?
             <SecondModal onClose={this.closeModal}/>
           : null}
@@ -74,7 +74,7 @@ class SecondModal extends React.Component {
   }
   render() {
     return <ModalContainer onClose={this.props.onClose}>
-      <ModalDialog onClose={this.props.onClose} width={350} className="example-dialog">
+      <ModalDialog onClose={this.props.onClose} width={350} className="example-dialog" dismissOnBackgroundClick={false}>
         <h1>Second Dialog</h1>
         <p>When you hit esc, only this one will close</p>
       </ModalDialog>

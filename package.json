@@ -12,7 +12,7 @@
     "prepublish": "npm run build",
     "start": "npm run build",
     "github": "./scripts/publishStaticSite.sh",
-    "build": "babel src --out-dir lib --stage 0"
+    "build": "webpack --config webpack.build.js"
   },
   "author": "Qiming Weng",
   "license": "MIT",
@@ -31,7 +31,13 @@
     "react-dom": "^0.14.0 || ^15.0.0"
   },
   "devDependencies": {
-    "autoprefixer-core": "^5.2.1",
-    "babel": "^5.8.34"
+    "autoprefixer": "^6.7.2",
+    "babel": "^6.5.2",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-lodash": "^3.2.11",
+    "babel-plugin-transform-runtime": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "webpack": "^2.2.1"
   }
 }

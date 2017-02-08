@@ -6,13 +6,25 @@
     "type": "git",
     "url": "https://github.com/qimingweng/react-modal-dialog"
   },
-  "main": "lib/index.js",
+  "main": "lib/index",
+  "module": "es/index",
+  "jsnext:main": "es/index",
   "edusightMain": "src/index.js",
+  "files": [
+    "*.md",
+    "es",
+    "lib",
+    "umd"
+  ],
   "scripts": {
     "prepublish": "npm run build",
     "start": "npm run build",
     "github": "./scripts/publishStaticSite.sh",
-    "build": "webpack --config webpack.build.js"
+    "build": "npm run build-cjs && npm run build-es",
+    "build-cjs": "rimraf lib && BABEL_ENV=cjs babel ./src -d lib",
+    "build-es": "rimraf es && BABEL_ENV=es babel ./src -d es",
+    "build-umd": "NODE_ENV=development webpack src/index.js umd/react-modal-dialog.js",
+    "build-min": "NODE_ENV=production webpack -p src/index.js umd/react-modal-dialog.min.js"
   },
   "author": "Qiming Weng",
   "license": "MIT",
@@ -33,8 +45,10 @@
   "devDependencies": {
     "autoprefixer": "^6.7.2",
     "babel": "^6.5.2",
+    "babel-cli": "^6.22.2",
     "babel-core": "^6.22.1",
     "babel-loader": "^6.2.10",
+    "babel-plugin-add-module-exports": "^0.2.1",
     "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-runtime": "^6.22.0",

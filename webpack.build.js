@@ -8,7 +8,24 @@ module.exports = {
     output: {
         path: 'lib/',
         publicPath: '/',
-        filename: 'index.js'
+        filename: 'index.js',
+        library: 'react-modal-dialog',
+        libraryTarget: 'umd'
+    },
+    externals: {
+        lodash: {
+            commonjs: 'lodash',
+            commonjs2: 'lodash',
+            amd: 'lodash',
+            root: '_'
+        },
+        react: {
+            root: 'React',
+            commonjs2: 'react',
+            commonjs: 'react',
+            amd: 'react'
+        }
+
     },
     plugins: [
         new webpack.LoaderOptionsPlugin({

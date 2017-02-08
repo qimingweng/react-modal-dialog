@@ -11,17 +11,24 @@ module.exports = {
         filename: 'index.js'
     },
     plugins: [
-        new webpack.LoaderOptionsPlugin({debug: true}),
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+            debug: false
+        }),
         new webpack.DefinePlugin({'process.env': {'NODE_ENV': '"production"'}}),
+        new webpack.optimize.AggressiveMergingPlugin(),
         new webpack.optimize.UglifyJsPlugin({
+            beautify: false,
+            mangle: {
+                screw_ie8: true,
+                keep_fnames: true
+            },
             compress: {
+                screw_ie8: true,
                 warnings: false
             },
-            output: {
-                comments: false
-            }
-        }),
-        new webpack.optimize.AggressiveMergingPlugin()
+            comments: false
+        })
     ],
 
     module: {
@@ -30,7 +37,7 @@ module.exports = {
             exclude: /(node_modules|bower_components)/,
             loader: 'babel-loader',
             options: {
-                presets: ['react', 'stage-0'],
+                presets: ['es2015', 'react', 'stage-0'],
                 plugins: [
                     'lodash',
                     'transform-decorators-legacy',

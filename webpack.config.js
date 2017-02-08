@@ -6,9 +6,6 @@ module.exports = {
 
     entry: './src/index.js',
     output: {
-        path: 'lib/',
-        publicPath: '/',
-        filename: 'index.js',
         library: 'react-modal-dialog',
         libraryTarget: 'umd'
     },
@@ -28,24 +25,26 @@ module.exports = {
 
     },
     plugins: [
-        new webpack.LoaderOptionsPlugin({
-            minimize: true,
-            debug: false
-        }),
-        new webpack.DefinePlugin({'process.env': {'NODE_ENV': '"production"'}}),
-        new webpack.optimize.AggressiveMergingPlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            beautify: false,
-            mangle: {
-                screw_ie8: true,
-                keep_fnames: true
-            },
-            compress: {
-                screw_ie8: true,
-                warnings: false
-            },
-            comments: false
-        })
+        //new webpack.LoaderOptionsPlugin({
+        //    minimize: true,
+        //    debug: false
+        //}),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+        })//,
+        //new webpack.optimize.AggressiveMergingPlugin(),
+        //new webpack.optimize.UglifyJsPlugin({
+        //    beautify: false,
+        //    mangle: {
+        //        screw_ie8: true,
+        //        keep_fnames: true
+        //    },
+        //    compress: {
+        //        screw_ie8: true,
+        //        warnings: false
+        //    },
+        //    comments: false
+        //})
     ],
 
     module: {

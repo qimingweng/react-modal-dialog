@@ -1,0 +1,12 @@
+{
+    "presets": [
+        "es2015",
+        "stage-0",
+        "react"
+    ],
+    "plugins": [
+        "lodash",
+        "transform-decorators-legacy",
+        "transform-runtime"
+    ]
+}

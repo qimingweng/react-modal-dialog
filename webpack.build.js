@@ -51,16 +51,8 @@ module.exports = {
     module: {
         rules: [{
             test: /\.jsx?$/,
-            exclude: /(node_modules|bower_components)/,
-            loader: 'babel-loader',
-            options: {
-                presets: ['es2015', 'react', 'stage-0'],
-                plugins: [
-                    'lodash',
-                    'transform-decorators-legacy',
-                    'transform-runtime'
-                ]
-            }
+            exclude: /node_modules/,
+            loader: 'babel-loader'
         }]
     }
 

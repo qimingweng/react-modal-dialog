@@ -6,8 +6,8 @@
     ],
     "plugins": [
         "lodash",
-    "transform-decorators-legacy",
-    "transform-runtime"
+        "transform-decorators-legacy",
+        "transform-runtime"
     ],
     "env": {
         "cjs": {

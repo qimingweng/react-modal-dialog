@@ -4503,7 +4503,8 @@ var ModalDialog = (0, _reactCenterComponent2.default)(_class = (_temp2 = _class2
           top = _this2$props.top,
           topOffset = _this2$props.topOffset,
           width = _this2$props.width,
-          rest = (0, _objectWithoutProperties3.default)(_this2$props, ['children', 'className', 'componentIsLeaving', 'left', 'leftOffset', 'margin', 'onClose', 'recenter', 'style', 'top', 'topOffset', 'width']);
+          dismissOnBackgroundClick = _this2$props.dismissOnBackgroundClick,
+          rest = (0, _objectWithoutProperties3.default)(_this2$props, ['children', 'className', 'componentIsLeaving', 'left', 'leftOffset', 'margin', 'onClose', 'recenter', 'style', 'top', 'topOffset', 'width', 'dismissOnBackgroundClick']);
 
 
       var dialogStyle = (0, _extends3.default)({

@@ -157,6 +157,7 @@ export default class ModalDialog extends React.Component {
         top, // eslint-disable-line no-unused-vars, this line is used to remove parameters from rest
         topOffset,
         width,
+        dismissOnBackgroundClick,
         ...rest,
       },
     } = this;

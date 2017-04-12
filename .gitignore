@@ -4,3 +4,7 @@ lib
 build
 npm-debug.log
 /index.js
+**/.idea
+**/.DS_Store
+.DS_Store
+yarn.lock

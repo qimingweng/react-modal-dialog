@@ -1,6 +1,7 @@
 // HomePageExampleModalButton
 import React, {PropTypes} from 'react';
-import {ModalContainer, ModalDialog} from 'react-modal-dialog';
+import ModalContainer from '../../../../src/ModalContainer'
+import ModalDialog from '../../../../src/ModalDialog'
 import ReactSpinner from 'react-spinjs';
 
 export default class HomePageExampleModalButton extends React.Component {

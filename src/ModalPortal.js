@@ -14,7 +14,9 @@ export default class ModalPortal extends React.Component {
   };
   componentDidMount = () => {
     // Create a div and append it to the body
-    this._target = document.body.appendChild(document.createElement('div'));
+    const div = document.createElement('div');
+    div.className = "react-modal-dialog-container";
+    this._target = document.body.appendChild(div);
 
     // Mount a component on that div
     this._component = renderSubtreeIntoContainer(this, this.props.children, this._target);

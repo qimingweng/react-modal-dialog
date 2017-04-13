@@ -1,5 +1,4 @@
 node_modules
-lib
 *.sublime*
 build
 npm-debug.log

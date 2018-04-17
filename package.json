@@ -1,50 +1,37 @@
 {
   "name": "react-modal-dialog",
-  "version": "1.0.0",
+  "version": "4.0.6",
   "description": "A simple, idiomatic, and declarative way to launch modal dialogs in ReactJS",
   "repository": {
     "type": "git",
     "url": "https://github.com/qimingweng/react-modal-dialog"
   },
   "main": "lib/index.js",
+  "edusightMain": "src/index.js",
   "scripts": {
+    "prepublish": "npm run build",
     "start": "npm run build",
     "github": "./scripts/publishStaticSite.sh",
-    "build": "babel src --out-dir lib",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "babel src --out-dir lib --stage 0"
   },
   "author": "Qiming Weng",
   "license": "MIT",
   "dependencies": {
     "active-event-stack": "^1.0.0",
     "classnames": "^2.1.2",
-    "dynamics.js": "0.0.7",
+    "dynamics.js": "^1.1.0",
     "immutable": "^3.7.4",
-    "jss": "^3.1.0",
-    "jss-camel-case": "^1.0.0",
-    "jss-nested": "^1.0.1",
-    "jss-px": "^1.0.0",
-    "jss-vendor-prefixer": "^1.0.0",
     "keycode": "^2.1.0",
     "lodash": "^3.9.3",
-    "react-center-component": "^2.0.1",
-    "react-jss": "^2.0.1"
+    "narcissus": "^1.0.0",
+    "react-center-component": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^0.14.2",
-    "react-dom": "^0.14.2"
+    "react": "^0.14.0 || ^15.0.0",
+    "react-dom": "^0.14.0 || ^15.0.0"
   },
   "devDependencies": {
     "autoprefixer-core": "^5.2.1",
-    "babel": "^5.8.34",
-    "babel-eslint": "^4.1.5",
-    "css-loader": "^0.15.1",
-    "eslint": "^1.9.0",
-    "eslint-config-airbnb": "^1.0.0",
-    "eslint-plugin-react": "^3.8.0",
-    "extract-text-webpack-plugin": "^0.8.2",
-    "node-libs-browser": "^0.5.2",
-    "postcss-loader": "^0.5.1",
-    "webpack": "^1.10.0"
+    "babel": "^5.8.34"
   }
 }

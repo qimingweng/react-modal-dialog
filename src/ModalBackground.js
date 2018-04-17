@@ -1,5 +1,4 @@
-import React, {PropTypes} from 'react';
-import ReactDOM from 'react-dom';
+import React, { PropTypes } from 'react';
 
 export default class ModalBackground extends React.Component {
   static propTypes = {
@@ -19,37 +18,27 @@ export default class ModalBackground extends React.Component {
     // This allows the component to change its css and animate in
     transparent: true,
   }
+  componentDidMount = () => {
+    // Create a delay so CSS will animate
+    requestAnimationFrame(() => this.setState({ transparent: false }));
+  }
   componentWillLeave = (callback) => {
     this.setState({
       transparent: true,
       componentIsLeaving: true,
     });
 
+    // There isn't a good way to figure out what the duration is exactly,
+    // because parts of the animation are carried out in CSS...
     setTimeout(() => {
       callback();
     }, this.props.duration);
-  }
-  shouldClickDismiss = (target) => {
-    // This piece of code isolates targets which are fake clicked by things
-    // like file-drop handlers
-    if (target.tagName === 'INPUT' && target.type === 'file') {
-      return false;
-    }
-
-    const dialogNode = ReactDOM.findDOMNode(this.refs.childRef);
-    if (target === dialogNode || dialogNode.contains(target)) return false;
-    return true;
-  }
-  componentDidMount = () => {
-    // Create a delay so CSS will animate
-    requestAnimationFrame(() => this.setState({transparent: false}));
   }
   getChild = () => {
     const child = React.Children.only(this.props.children);
     const cloneProps = {
       onClose: this.props.onClose,
       componentIsLeaving: this.state.componentIsLeaving,
-      ref: 'childRef',
     };
     if (!cloneProps.onClose) {
       delete cloneProps.onClose;
@@ -57,7 +46,7 @@ export default class ModalBackground extends React.Component {
     return React.cloneElement(child, cloneProps);
   }
   render = () => {
-    const {transparent} = this.state;
+    const { transparent } = this.state;
 
     const overlayStyle = {
       opacity: transparent ? 0 : 0.85,
@@ -69,6 +58,7 @@ export default class ModalBackground extends React.Component {
       width: '100%',
       transition: `opacity ${this.props.duration / 1000}s`,
       WebkitTransition: `opacity ${this.props.duration / 1000}s`,
+      cursor: 'pointer',
     };
 
     const containerStyle = {
@@ -77,13 +67,17 @@ export default class ModalBackground extends React.Component {
       position: 'absolute',
       top: 0,
       left: 0,
-      minHeight: '100%',
+      height: '100%',
       width: '100%',
       transition: `opacity ${this.props.duration / 1000}s`,
       WebkitTransition: `opacity ${this.props.duration / 1000}s`,
+      cursor: 'pointer',
     };
 
     const style = {
+      // This position needs to be fixed so that when the html/body is bigger
+      // than the viewport, this background still shows up in the center.
+      // This is particularly useful on edusight-home pages.
       position: 'fixed',
       top: 0,
       left: 0,

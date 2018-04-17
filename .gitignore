@@ -1,5 +1,6 @@
 node_modules
-lib/**
+lib
 *.sublime*
 build
 npm-debug.log
+/index.js

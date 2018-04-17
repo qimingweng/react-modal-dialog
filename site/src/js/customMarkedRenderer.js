@@ -1,16 +1,15 @@
-var marked = require('marked');
-var renderer = new marked.Renderer();
-var highlight = require('highlight.js')
+const marked = require('marked');
+const renderer = new marked.Renderer();
+const highlight = require('highlight.js');
 
-renderer.code = function(code, lang) {
-
-  var result = [
+renderer.code = (code, lang) => {
+  const result = [
     '<pre class="hljs">',
     highlight.highlightAuto(code, [lang]).value,
-    '</pre>'
+    '</pre>',
   ].join('');
 
   return result;
-}
+};
 
 module.exports = renderer;

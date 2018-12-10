@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import ModalPortal from './ModalPortal';
 import ModalBackground from './ModalBackground';
@@ -13,6 +14,7 @@ export default class ModalContainer extends React.Component {
   static propTypes = {
     children: PropTypes.node,
   }
+  
   render = () => {
     const {
       props: {

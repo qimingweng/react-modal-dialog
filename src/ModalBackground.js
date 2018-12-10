@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 export default class ModalBackground extends React.Component {
   static propTypes = {
@@ -8,20 +9,24 @@ export default class ModalBackground extends React.Component {
     zIndex: PropTypes.number.isRequired,
     children: PropTypes.node,
   }
+
   static defaultProps = {
     duration: 300,
     backgroundColor: '#182738',
     zIndex: 5,
   }
+
   state = {
     // This is set to false as soon as the component has mounted
     // This allows the component to change its css and animate in
     transparent: true,
   }
+
   componentDidMount = () => {
     // Create a delay so CSS will animate
     requestAnimationFrame(() => this.setState({ transparent: false }));
   }
+
   componentWillLeave = (callback) => {
     this.setState({
       transparent: true,
@@ -34,6 +39,7 @@ export default class ModalBackground extends React.Component {
       callback();
     }, this.props.duration);
   }
+
   getChild = () => {
     const child = React.Children.only(this.props.children);
     const cloneProps = {
@@ -45,6 +51,7 @@ export default class ModalBackground extends React.Component {
     }
     return React.cloneElement(child, cloneProps);
   }
+  
   render = () => {
     const { transparent } = this.state;
 

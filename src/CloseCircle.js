@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 // Done in SVG so we can avoid importing any CSS
 const RECT_WIDTH = 1.5;

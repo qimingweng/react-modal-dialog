@@ -1,5 +1,6 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 
 // Render into subtree is necessary for parent contexts to transfer over
 // For example, for react-router
@@ -12,6 +13,7 @@ export default class ModalPortal extends React.Component {
     onModalDidMount: PropTypes.func, // optional, called on mount
     onModalWillUnmount: PropTypes.func, // optional, called on unmount
   };
+
   componentDidMount = () => {
     // Create a div and append it to the body
     this._target = document.body.appendChild(document.createElement('div'));
@@ -24,10 +26,12 @@ export default class ModalPortal extends React.Component {
       this.props.onModalDidMount();
     }
   };
+
   componentDidUpdate = () => {
     // When the child component updates, we have to make sure the content rendered to the DOM is updated to
     this._component = renderSubtreeIntoContainer(this, this.props.children, this._target);
   };
+
   componentWillUnmount = () => {
     /**
      * Let this be some discussion about fading out the components on unmount.
@@ -59,6 +63,7 @@ export default class ModalPortal extends React.Component {
       done();
     }
   };
+
   _target = null; // HTMLElement, a div that is appended to the body
   _component = null; // ReactComponent, which is mounted on the target
   render = () => null; // This doesn't actually return anything to render

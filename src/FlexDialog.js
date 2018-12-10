@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { inject } from 'narcissus';
 
@@ -23,11 +24,13 @@ export default class FlexDialog extends React.Component {
     margin: PropTypes.number,
     style: PropTypes.object,
   };
+
   static defaultProps = {
     width: 'auto',
     margin: 20,
     useDefaultStyle: true,
   };
+  
   render = () => {
     const {
       props: {

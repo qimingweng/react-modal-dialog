@@ -1,10 +1,13 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
+
 import dynamics from 'dynamics.js';
-import CloseCircle from './CloseCircle';
 import EventStack from 'active-event-stack';
 import keycode from 'keycode';
 import { inject } from 'narcissus';
+
+import CloseCircle from './CloseCircle';
 
 const styles = {
   closeButton: {
@@ -28,6 +31,7 @@ export default class UnstyledFlexDialog extends React.Component {
     onClose: PropTypes.func,
     style: PropTypes.object,
   };
+
   componentWillMount = () => {
     /**
      * This is done in the componentWillMount instead of the componentDidMount
@@ -39,9 +43,11 @@ export default class UnstyledFlexDialog extends React.Component {
       [ 'keydown', this.handleGlobalKeydown ],
     ]);
   };
+
   componentDidMount = () => {
     this.animateIn();
   };
+
   componentWillReceiveProps = (nextProps) => {
     if (nextProps.componentIsLeaving && !this.props.componentIsLeaving) {
       const node = ReactDOM.findDOMNode(this.refs.self);
@@ -54,9 +60,11 @@ export default class UnstyledFlexDialog extends React.Component {
       });
     }
   };
+
   componentWillUnmount = () => {
     EventStack.removeListenable(this.eventToken);
   };
+
   didAnimateInAlready = false;
   shouldClickDismiss = (event) => {
     const { target } = event;
@@ -69,6 +77,7 @@ export default class UnstyledFlexDialog extends React.Component {
     if (target === this.refs.self || this.refs.self.contains(target)) return false;
     return true;
   };
+
   handleGlobalClick = (event) => {
     if (this.shouldClickDismiss(event)) {
       if (typeof this.props.onClose == 'function') {
@@ -76,6 +85,7 @@ export default class UnstyledFlexDialog extends React.Component {
       }
     }
   };
+
   handleGlobalKeydown = (event) => {
     if (keycode(event) === 'esc') {
       if (typeof this.props.onClose == 'function') {
@@ -83,6 +93,7 @@ export default class UnstyledFlexDialog extends React.Component {
       }
     }
   };
+
   animateIn = () => {
     this.didAnimateInAlready = true;
 
@@ -104,6 +115,7 @@ export default class UnstyledFlexDialog extends React.Component {
       friction: 400,
     });
   };
+  
   render = () => {
     const {
       props: {

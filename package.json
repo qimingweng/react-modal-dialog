@@ -22,7 +22,7 @@
     "dynamics.js": "^1.1.0",
     "immutable": "^3.7.4",
     "keycode": "^2.1.0",
-    "lodash": "^3.9.3",
+    "lodash": "^4.17.19",
     "narcissus": "^1.0.0",
     "react-center-component": "^3.0.0"
   },
